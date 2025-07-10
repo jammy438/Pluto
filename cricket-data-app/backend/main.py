@@ -219,3 +219,30 @@ async def get_game_analysis(game_id: int):
         "home_win_percentage": round(home_win_percentage, 2),
         "total_simulations": total_sims
     }
+
+@app.get("/games/{game_id}/histogram-data")
+async def get_histogram_data(game_id: int):
+    """Get histogram data for visualization"""
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+    
+    # Get game info
+    cursor.execute("SELECT home_team, away_team FROM games WHERE id = ?", (game_id,))
+    game_row = cursor.fetchone()
+    if not game_row:
+        raise HTTPException(status_code=404, detail="Game not found")
+    
+    home_team, away_team = game_row
+    
+    # Get simulation scores
+    cursor.execute("""
+        SELECT home_score, away_score
+        FROM simulations
+        WHERE game_id = ?
+    """, (game_id,))
+    
+    simulations = cursor.fetchall()
+    conn.close()
+    
+    if not simulations:
+        raise HTTPException(status_code=404, detail="No simulation data found")

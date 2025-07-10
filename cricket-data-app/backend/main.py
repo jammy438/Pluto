@@ -113,3 +113,25 @@ class GameAnalysis(BaseModel):
     simulations: List[Simulation]
     home_win_probability: float
     total_simulations: int
+
+@app.on_event("startup")
+async def startup_event():
+        """Initialize the database and load data on startup"""
+        init_database()
+        load_csv_data()
+
+@app.get("/")
+async def read_root():
+    return {"message": "Cricket Data API is running"}
+
+@app.get("/venues", response_model=List[Venue])
+async def get_venues():
+    """Get all venues"""
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT * FROM venues")
+    Venues = [{id=row[0], name=row[1]} for row in cursor.fetchall()]
+
+    conn.close()
+    return Venues

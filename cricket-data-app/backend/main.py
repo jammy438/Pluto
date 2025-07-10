@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import sqlite3
 import pandas as pd
 import os
+from typing import List, Dict, Any
+from pydantic import BaseModel
 
 app = FastAPI(title="Cricket Data API", version="1.0.0")
 
@@ -87,3 +89,27 @@ def load_csv_data():
         print(f"Error loading CSV data: {e}")
     finally:
         conn.close()
+
+# Response models
+class Venue(BaseModel):
+    id: int
+    name: str
+
+class Game(BaseModel):
+    id: int
+    home_team: str
+    away_team: str
+    venue_id: int
+    venue_name: str
+
+class Simulation(BaseModel):
+    id: int
+    game_id: int
+    home_score: int
+    away_score: int
+
+class GameAnalysis(BaseModel):
+    game: Game
+    simulations: List[Simulation]
+    home_win_probability: float
+    total_simulations: int

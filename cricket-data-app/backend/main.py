@@ -207,3 +207,15 @@ async def get_game_analysis(game_id: int):
         total_sims += 1
     
     conn.close()
+
+    if total_sims == 0:
+        raise HTTPException(status_code=404, detail="No simulation data found for this game")
+    
+    home_win_percentage = (home_wins / total_sims) * 100
+    
+    return {
+        "game": game,
+        "simulations": simulations,
+        "home_win_percentage": round(home_win_percentage, 2),
+        "total_simulations": total_sims
+    }

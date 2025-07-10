@@ -269,3 +269,7 @@ async def get_histogram_data(game_id: int):
         "away_frequency": dict(away_freq),
         "score_range": {"min": min_score, "max": max_score}
     }
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

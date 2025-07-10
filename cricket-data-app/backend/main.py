@@ -158,3 +158,52 @@ async def get_games():
     conn.close()
     return games
 
+@app.get("/games/{game_id}/analysis", response_model=GameAnalysis)
+async def get_game_analysis(game_id: int):
+    """Get game analysis including simulations and win probabilities"""
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+    
+    # Get game details
+    cursor.execute("""
+        SELECT g.id, g.home_team, g.away_team, g.venue_id, v.name
+        FROM games g
+        LEFT JOIN venues v ON g.venue_id = v.id
+        WHERE g.id = ?
+    """, (game_id,))
+    
+    game_row = cursor.fetchone()
+    if not game_row:
+        raise HTTPException(status_code=404, detail="Game not found")
+    
+    game = Game(
+        id=game_row[0],
+        home_team=game_row[1],
+        away_team=game_row[2],
+        venue_id=game_row[3],
+        venue_name=game_row[4] or "Unknown Venue"
+    )
+    
+    # Get simulations for the game
+    cursor.execute("""
+        SELECT home_score, away_score
+        FROM simulations
+        WHERE game_id = ?
+    """, (game_id,))
+    
+    simulations = []
+    home_wins = 0
+    total_sims = 0
+    
+    for row in cursor.fetchall():
+        home_score, away_score = row[0], row[1]
+        simulations.append({
+            "home_score": home_score,
+            "away_score": away_score
+        })
+        
+        if home_score > away_score:
+            home_wins += 1
+        total_sims += 1
+    
+    conn.close()

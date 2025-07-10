@@ -246,3 +246,26 @@ async def get_histogram_data(game_id: int):
     
     if not simulations:
         raise HTTPException(status_code=404, detail="No simulation data found")
+    
+    # Create histogram data
+    home_scores = [sim[0] for sim in simulations]
+    away_scores = [sim[1] for sim in simulations]
+    
+    # Create bins for histogram
+    min_score = min(min(home_scores), min(away_scores))
+    max_score = max(max(home_scores), max(away_scores))
+    
+    # Create frequency distributions
+    from collections import Counter
+    home_freq = Counter(home_scores)
+    away_freq = Counter(away_scores)
+    
+    return {
+        "home_team": home_team,
+        "away_team": away_team,
+        "home_scores": home_scores,
+        "away_scores": away_scores,
+        "home_frequency": dict(home_freq),
+        "away_frequency": dict(away_freq),
+        "score_range": {"min": min_score, "max": max_score}
+    }

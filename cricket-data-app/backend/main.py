@@ -131,7 +131,7 @@ async def get_venues():
     cursor = conn.cursor()
     
     cursor.execute("SELECT * FROM venues")
-    Venues = [{id=row[0], name=row[1]} for row in cursor.fetchall()]
+    Venues = [{id:row[0], "name":row[1]} for row in cursor.fetchall()]
 
     conn.close()
     return Venues

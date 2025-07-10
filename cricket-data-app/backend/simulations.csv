@@ -1,0 +1,1001 @@
+team_id,team,simulation_run,results
+0,Peterborough Strikers,1,141
+0,Peterborough Strikers,2,154
+0,Peterborough Strikers,3,131
+0,Peterborough Strikers,4,157
+0,Peterborough Strikers,5,131
+0,Peterborough Strikers,6,146
+0,Peterborough Strikers,7,143
+0,Peterborough Strikers,8,140
+0,Peterborough Strikers,9,137
+0,Peterborough Strikers,10,187
+0,Peterborough Strikers,11,163
+0,Peterborough Strikers,12,158
+0,Peterborough Strikers,13,171
+0,Peterborough Strikers,14,182
+0,Peterborough Strikers,15,154
+0,Peterborough Strikers,16,169
+0,Peterborough Strikers,17,173
+0,Peterborough Strikers,18,143
+0,Peterborough Strikers,19,148
+0,Peterborough Strikers,20,152
+0,Peterborough Strikers,21,113
+0,Peterborough Strikers,22,149
+0,Peterborough Strikers,23,157
+0,Peterborough Strikers,24,168
+0,Peterborough Strikers,25,175
+0,Peterborough Strikers,26,167
+0,Peterborough Strikers,27,162
+0,Peterborough Strikers,28,164
+0,Peterborough Strikers,29,182
+0,Peterborough Strikers,30,140
+0,Peterborough Strikers,31,161
+0,Peterborough Strikers,32,153
+0,Peterborough Strikers,33,125
+0,Peterborough Strikers,34,196
+0,Peterborough Strikers,35,170
+0,Peterborough Strikers,36,173
+0,Peterborough Strikers,37,128
+0,Peterborough Strikers,38,167
+0,Peterborough Strikers,39,151
+0,Peterborough Strikers,40,190
+0,Peterborough Strikers,41,171
+0,Peterborough Strikers,42,182
+0,Peterborough Strikers,43,166
+0,Peterborough Strikers,44,157
+0,Peterborough Strikers,45,150
+0,Peterborough Strikers,46,144
+0,Peterborough Strikers,47,117
+0,Peterborough Strikers,48,142
+0,Peterborough Strikers,49,170
+0,Peterborough Strikers,50,156
+0,Peterborough Strikers,51,143
+0,Peterborough Strikers,52,137
+0,Peterborough Strikers,53,166
+0,Peterborough Strikers,54,143
+0,Peterborough Strikers,55,202
+0,Peterborough Strikers,56,136
+0,Peterborough Strikers,57,147
+0,Peterborough Strikers,58,154
+0,Peterborough Strikers,59,163
+0,Peterborough Strikers,60,146
+0,Peterborough Strikers,61,169
+0,Peterborough Strikers,62,153
+0,Peterborough Strikers,63,183
+0,Peterborough Strikers,64,151
+0,Peterborough Strikers,65,174
+0,Peterborough Strikers,66,133
+0,Peterborough Strikers,67,154
+0,Peterborough Strikers,68,161
+0,Peterborough Strikers,69,123
+0,Peterborough Strikers,70,142
+0,Peterborough Strikers,71,156
+0,Peterborough Strikers,72,159
+0,Peterborough Strikers,73,124
+0,Peterborough Strikers,74,128
+0,Peterborough Strikers,75,163
+0,Peterborough Strikers,76,144
+0,Peterborough Strikers,77,153
+0,Peterborough Strikers,78,189
+0,Peterborough Strikers,79,146
+0,Peterborough Strikers,80,117
+0,Peterborough Strikers,81,173
+0,Peterborough Strikers,82,166
+0,Peterborough Strikers,83,114
+0,Peterborough Strikers,84,146
+0,Peterborough Strikers,85,178
+0,Peterborough Strikers,86,152
+0,Peterborough Strikers,87,170
+0,Peterborough Strikers,88,158
+0,Peterborough Strikers,89,181
+0,Peterborough Strikers,90,145
+0,Peterborough Strikers,91,150
+0,Peterborough Strikers,92,169
+0,Peterborough Strikers,93,163
+0,Peterborough Strikers,94,179
+0,Peterborough Strikers,95,171
+0,Peterborough Strikers,96,174
+0,Peterborough Strikers,97,170
+0,Peterborough Strikers,98,166
+0,Peterborough Strikers,99,108
+0,Peterborough Strikers,100,164
+1,Huddersfield Heat,1,160
+1,Huddersfield Heat,2,172
+1,Huddersfield Heat,3,150
+1,Huddersfield Heat,4,132
+1,Huddersfield Heat,5,166
+1,Huddersfield Heat,6,155
+1,Huddersfield Heat,7,148
+1,Huddersfield Heat,8,140
+1,Huddersfield Heat,9,169
+1,Huddersfield Heat,10,138
+1,Huddersfield Heat,11,107
+1,Huddersfield Heat,12,120
+1,Huddersfield Heat,13,126
+1,Huddersfield Heat,14,153
+1,Huddersfield Heat,15,133
+1,Huddersfield Heat,16,131
+1,Huddersfield Heat,17,128
+1,Huddersfield Heat,18,169
+1,Huddersfield Heat,19,138
+1,Huddersfield Heat,20,150
+1,Huddersfield Heat,21,158
+1,Huddersfield Heat,22,181
+1,Huddersfield Heat,23,134
+1,Huddersfield Heat,24,136
+1,Huddersfield Heat,25,156
+1,Huddersfield Heat,26,156
+1,Huddersfield Heat,27,180
+1,Huddersfield Heat,28,138
+1,Huddersfield Heat,29,111
+1,Huddersfield Heat,30,168
+1,Huddersfield Heat,31,163
+1,Huddersfield Heat,32,132
+1,Huddersfield Heat,33,140
+1,Huddersfield Heat,34,141
+1,Huddersfield Heat,35,137
+1,Huddersfield Heat,36,142
+1,Huddersfield Heat,37,130
+1,Huddersfield Heat,38,122
+1,Huddersfield Heat,39,151
+1,Huddersfield Heat,40,148
+1,Huddersfield Heat,41,130
+1,Huddersfield Heat,42,122
+1,Huddersfield Heat,43,185
+1,Huddersfield Heat,44,159
+1,Huddersfield Heat,45,128
+1,Huddersfield Heat,46,145
+1,Huddersfield Heat,47,138
+1,Huddersfield Heat,48,138
+1,Huddersfield Heat,49,205
+1,Huddersfield Heat,50,137
+1,Huddersfield Heat,51,166
+1,Huddersfield Heat,52,149
+1,Huddersfield Heat,53,105
+1,Huddersfield Heat,54,146
+1,Huddersfield Heat,55,126
+1,Huddersfield Heat,56,162
+1,Huddersfield Heat,57,130
+1,Huddersfield Heat,58,122
+1,Huddersfield Heat,59,160
+1,Huddersfield Heat,60,158
+1,Huddersfield Heat,61,141
+1,Huddersfield Heat,62,164
+1,Huddersfield Heat,63,137
+1,Huddersfield Heat,64,158
+1,Huddersfield Heat,65,167
+1,Huddersfield Heat,66,165
+1,Huddersfield Heat,67,167
+1,Huddersfield Heat,68,171
+1,Huddersfield Heat,69,150
+1,Huddersfield Heat,70,104
+1,Huddersfield Heat,71,142
+1,Huddersfield Heat,72,153
+1,Huddersfield Heat,73,142
+1,Huddersfield Heat,74,143
+1,Huddersfield Heat,75,169
+1,Huddersfield Heat,76,170
+1,Huddersfield Heat,77,148
+1,Huddersfield Heat,78,154
+1,Huddersfield Heat,79,108
+1,Huddersfield Heat,80,139
+1,Huddersfield Heat,81,167
+1,Huddersfield Heat,82,124
+1,Huddersfield Heat,83,161
+1,Huddersfield Heat,84,147
+1,Huddersfield Heat,85,135
+1,Huddersfield Heat,86,111
+1,Huddersfield Heat,87,125
+1,Huddersfield Heat,88,125
+1,Huddersfield Heat,89,162
+1,Huddersfield Heat,90,102
+1,Huddersfield Heat,91,195
+1,Huddersfield Heat,92,164
+1,Huddersfield Heat,93,158
+1,Huddersfield Heat,94,123
+1,Huddersfield Heat,95,168
+1,Huddersfield Heat,96,127
+1,Huddersfield Heat,97,161
+1,Huddersfield Heat,98,141
+1,Huddersfield Heat,99,131
+1,Huddersfield Heat,100,154
+2,Rochdale Hurricanes,1,127
+2,Rochdale Hurricanes,2,146
+2,Rochdale Hurricanes,3,140
+2,Rochdale Hurricanes,4,150
+2,Rochdale Hurricanes,5,134
+2,Rochdale Hurricanes,6,145
+2,Rochdale Hurricanes,7,123
+2,Rochdale Hurricanes,8,149
+2,Rochdale Hurricanes,9,110
+2,Rochdale Hurricanes,10,149
+2,Rochdale Hurricanes,11,93
+2,Rochdale Hurricanes,12,149
+2,Rochdale Hurricanes,13,127
+2,Rochdale Hurricanes,14,143
+2,Rochdale Hurricanes,15,134
+2,Rochdale Hurricanes,16,120
+2,Rochdale Hurricanes,17,112
+2,Rochdale Hurricanes,18,116
+2,Rochdale Hurricanes,19,133
+2,Rochdale Hurricanes,20,107
+2,Rochdale Hurricanes,21,155
+2,Rochdale Hurricanes,22,132
+2,Rochdale Hurricanes,23,113
+2,Rochdale Hurricanes,24,117
+2,Rochdale Hurricanes,25,143
+2,Rochdale Hurricanes,26,108
+2,Rochdale Hurricanes,27,153
+2,Rochdale Hurricanes,28,144
+2,Rochdale Hurricanes,29,169
+2,Rochdale Hurricanes,30,114
+2,Rochdale Hurricanes,31,119
+2,Rochdale Hurricanes,32,156
+2,Rochdale Hurricanes,33,114
+2,Rochdale Hurricanes,34,86
+2,Rochdale Hurricanes,35,118
+2,Rochdale Hurricanes,36,114
+2,Rochdale Hurricanes,37,124
+2,Rochdale Hurricanes,38,146
+2,Rochdale Hurricanes,39,120
+2,Rochdale Hurricanes,40,115
+2,Rochdale Hurricanes,41,144
+2,Rochdale Hurricanes,42,145
+2,Rochdale Hurricanes,43,123
+2,Rochdale Hurricanes,44,147
+2,Rochdale Hurricanes,45,115
+2,Rochdale Hurricanes,46,140
+2,Rochdale Hurricanes,47,158
+2,Rochdale Hurricanes,48,127
+2,Rochdale Hurricanes,49,120
+2,Rochdale Hurricanes,50,122
+2,Rochdale Hurricanes,51,153
+2,Rochdale Hurricanes,52,122
+2,Rochdale Hurricanes,53,117
+2,Rochdale Hurricanes,54,109
+2,Rochdale Hurricanes,55,136
+2,Rochdale Hurricanes,56,115
+2,Rochdale Hurricanes,57,108
+2,Rochdale Hurricanes,58,119
+2,Rochdale Hurricanes,59,170
+2,Rochdale Hurricanes,60,123
+2,Rochdale Hurricanes,61,108
+2,Rochdale Hurricanes,62,166
+2,Rochdale Hurricanes,63,158
+2,Rochdale Hurricanes,64,132
+2,Rochdale Hurricanes,65,144
+2,Rochdale Hurricanes,66,136
+2,Rochdale Hurricanes,67,150
+2,Rochdale Hurricanes,68,104
+2,Rochdale Hurricanes,69,127
+2,Rochdale Hurricanes,70,131
+2,Rochdale Hurricanes,71,120
+2,Rochdale Hurricanes,72,119
+2,Rochdale Hurricanes,73,156
+2,Rochdale Hurricanes,74,108
+2,Rochdale Hurricanes,75,89
+2,Rochdale Hurricanes,76,109
+2,Rochdale Hurricanes,77,165
+2,Rochdale Hurricanes,78,127
+2,Rochdale Hurricanes,79,131
+2,Rochdale Hurricanes,80,129
+2,Rochdale Hurricanes,81,106
+2,Rochdale Hurricanes,82,142
+2,Rochdale Hurricanes,83,85
+2,Rochdale Hurricanes,84,126
+2,Rochdale Hurricanes,85,119
+2,Rochdale Hurricanes,86,152
+2,Rochdale Hurricanes,87,146
+2,Rochdale Hurricanes,88,105
+2,Rochdale Hurricanes,89,100
+2,Rochdale Hurricanes,90,141
+2,Rochdale Hurricanes,91,132
+2,Rochdale Hurricanes,92,133
+2,Rochdale Hurricanes,93,126
+2,Rochdale Hurricanes,94,81
+2,Rochdale Hurricanes,95,164
+2,Rochdale Hurricanes,96,128
+2,Rochdale Hurricanes,97,154
+2,Rochdale Hurricanes,98,124
+2,Rochdale Hurricanes,99,125
+2,Rochdale Hurricanes,100,102
+3,Doncaster Renegades,1,194
+3,Doncaster Renegades,2,211
+3,Doncaster Renegades,3,157
+3,Doncaster Renegades,4,188
+3,Doncaster Renegades,5,168
+3,Doncaster Renegades,6,152
+3,Doncaster Renegades,7,167
+3,Doncaster Renegades,8,126
+3,Doncaster Renegades,9,175
+3,Doncaster Renegades,10,207
+3,Doncaster Renegades,11,176
+3,Doncaster Renegades,12,158
+3,Doncaster Renegades,13,196
+3,Doncaster Renegades,14,170
+3,Doncaster Renegades,15,162
+3,Doncaster Renegades,16,152
+3,Doncaster Renegades,17,154
+3,Doncaster Renegades,18,164
+3,Doncaster Renegades,19,163
+3,Doncaster Renegades,20,135
+3,Doncaster Renegades,21,160
+3,Doncaster Renegades,22,164
+3,Doncaster Renegades,23,193
+3,Doncaster Renegades,24,203
+3,Doncaster Renegades,25,164
+3,Doncaster Renegades,26,151
+3,Doncaster Renegades,27,176
+3,Doncaster Renegades,28,184
+3,Doncaster Renegades,29,159
+3,Doncaster Renegades,30,119
+3,Doncaster Renegades,31,186
+3,Doncaster Renegades,32,172
+3,Doncaster Renegades,33,154
+3,Doncaster Renegades,34,181
+3,Doncaster Renegades,35,192
+3,Doncaster Renegades,36,150
+3,Doncaster Renegades,37,167
+3,Doncaster Renegades,38,177
+3,Doncaster Renegades,39,163
+3,Doncaster Renegades,40,159
+3,Doncaster Renegades,41,175
+3,Doncaster Renegades,42,169
+3,Doncaster Renegades,43,162
+3,Doncaster Renegades,44,139
+3,Doncaster Renegades,45,133
+3,Doncaster Renegades,46,131
+3,Doncaster Renegades,47,163
+3,Doncaster Renegades,48,175
+3,Doncaster Renegades,49,114
+3,Doncaster Renegades,50,187
+3,Doncaster Renegades,51,147
+3,Doncaster Renegades,52,192
+3,Doncaster Renegades,53,145
+3,Doncaster Renegades,54,162
+3,Doncaster Renegades,55,179
+3,Doncaster Renegades,56,201
+3,Doncaster Renegades,57,179
+3,Doncaster Renegades,58,148
+3,Doncaster Renegades,59,169
+3,Doncaster Renegades,60,181
+3,Doncaster Renegades,61,128
+3,Doncaster Renegades,62,155
+3,Doncaster Renegades,63,181
+3,Doncaster Renegades,64,188
+3,Doncaster Renegades,65,167
+3,Doncaster Renegades,66,171
+3,Doncaster Renegades,67,168
+3,Doncaster Renegades,68,176
+3,Doncaster Renegades,69,188
+3,Doncaster Renegades,70,178
+3,Doncaster Renegades,71,141
+3,Doncaster Renegades,72,146
+3,Doncaster Renegades,73,172
+3,Doncaster Renegades,74,155
+3,Doncaster Renegades,75,147
+3,Doncaster Renegades,76,138
+3,Doncaster Renegades,77,185
+3,Doncaster Renegades,78,179
+3,Doncaster Renegades,79,121
+3,Doncaster Renegades,80,172
+3,Doncaster Renegades,81,172
+3,Doncaster Renegades,82,185
+3,Doncaster Renegades,83,177
+3,Doncaster Renegades,84,161
+3,Doncaster Renegades,85,123
+3,Doncaster Renegades,86,148
+3,Doncaster Renegades,87,199
+3,Doncaster Renegades,88,184
+3,Doncaster Renegades,89,152
+3,Doncaster Renegades,90,177
+3,Doncaster Renegades,91,115
+3,Doncaster Renegades,92,149
+3,Doncaster Renegades,93,183
+3,Doncaster Renegades,94,197
+3,Doncaster Renegades,95,151
+3,Doncaster Renegades,96,145
+3,Doncaster Renegades,97,177
+3,Doncaster Renegades,98,151
+3,Doncaster Renegades,99,194
+3,Doncaster Renegades,100,167
+4,Hull Stars,1,128
+4,Hull Stars,2,160
+4,Hull Stars,3,92
+4,Hull Stars,4,124
+4,Hull Stars,5,157
+4,Hull Stars,6,168
+4,Hull Stars,7,156
+4,Hull Stars,8,146
+4,Hull Stars,9,96
+4,Hull Stars,10,168
+4,Hull Stars,11,133
+4,Hull Stars,12,162
+4,Hull Stars,13,129
+4,Hull Stars,14,178
+4,Hull Stars,15,131
+4,Hull Stars,16,121
+4,Hull Stars,17,145
+4,Hull Stars,18,175
+4,Hull Stars,19,123
+4,Hull Stars,20,162
+4,Hull Stars,21,152
+4,Hull Stars,22,108
+4,Hull Stars,23,176
+4,Hull Stars,24,138
+4,Hull Stars,25,132
+4,Hull Stars,26,146
+4,Hull Stars,27,111
+4,Hull Stars,28,119
+4,Hull Stars,29,149
+4,Hull Stars,30,117
+4,Hull Stars,31,76
+4,Hull Stars,32,144
+4,Hull Stars,33,111
+4,Hull Stars,34,129
+4,Hull Stars,35,125
+4,Hull Stars,36,127
+4,Hull Stars,37,118
+4,Hull Stars,38,84
+4,Hull Stars,39,171
+4,Hull Stars,40,115
+4,Hull Stars,41,127
+4,Hull Stars,42,120
+4,Hull Stars,43,124
+4,Hull Stars,44,136
+4,Hull Stars,45,160
+4,Hull Stars,46,141
+4,Hull Stars,47,153
+4,Hull Stars,48,126
+4,Hull Stars,49,160
+4,Hull Stars,50,159
+4,Hull Stars,51,133
+4,Hull Stars,52,160
+4,Hull Stars,53,134
+4,Hull Stars,54,157
+4,Hull Stars,55,115
+4,Hull Stars,56,162
+4,Hull Stars,57,136
+4,Hull Stars,58,141
+4,Hull Stars,59,141
+4,Hull Stars,60,117
+4,Hull Stars,61,156
+4,Hull Stars,62,128
+4,Hull Stars,63,142
+4,Hull Stars,64,162
+4,Hull Stars,65,162
+4,Hull Stars,66,182
+4,Hull Stars,67,105
+4,Hull Stars,68,117
+4,Hull Stars,69,165
+4,Hull Stars,70,184
+4,Hull Stars,71,124
+4,Hull Stars,72,134
+4,Hull Stars,73,138
+4,Hull Stars,74,151
+4,Hull Stars,75,117
+4,Hull Stars,76,131
+4,Hull Stars,77,121
+4,Hull Stars,78,149
+4,Hull Stars,79,132
+4,Hull Stars,80,135
+4,Hull Stars,81,127
+4,Hull Stars,82,168
+4,Hull Stars,83,161
+4,Hull Stars,84,136
+4,Hull Stars,85,100
+4,Hull Stars,86,119
+4,Hull Stars,87,173
+4,Hull Stars,88,115
+4,Hull Stars,89,133
+4,Hull Stars,90,157
+4,Hull Stars,91,134
+4,Hull Stars,92,145
+4,Hull Stars,93,161
+4,Hull Stars,94,123
+4,Hull Stars,95,139
+4,Hull Stars,96,145
+4,Hull Stars,97,168
+4,Hull Stars,98,115
+4,Hull Stars,99,88
+4,Hull Stars,100,133
+5,Rotherham Scorchers,1,113
+5,Rotherham Scorchers,2,111
+5,Rotherham Scorchers,3,116
+5,Rotherham Scorchers,4,98
+5,Rotherham Scorchers,5,125
+5,Rotherham Scorchers,6,135
+5,Rotherham Scorchers,7,109
+5,Rotherham Scorchers,8,146
+5,Rotherham Scorchers,9,142
+5,Rotherham Scorchers,10,141
+5,Rotherham Scorchers,11,158
+5,Rotherham Scorchers,12,149
+5,Rotherham Scorchers,13,125
+5,Rotherham Scorchers,14,109
+5,Rotherham Scorchers,15,138
+5,Rotherham Scorchers,16,95
+5,Rotherham Scorchers,17,94
+5,Rotherham Scorchers,18,120
+5,Rotherham Scorchers,19,101
+5,Rotherham Scorchers,20,195
+5,Rotherham Scorchers,21,136
+5,Rotherham Scorchers,22,98
+5,Rotherham Scorchers,23,138
+5,Rotherham Scorchers,24,128
+5,Rotherham Scorchers,25,143
+5,Rotherham Scorchers,26,124
+5,Rotherham Scorchers,27,89
+5,Rotherham Scorchers,28,119
+5,Rotherham Scorchers,29,137
+5,Rotherham Scorchers,30,139
+5,Rotherham Scorchers,31,111
+5,Rotherham Scorchers,32,130
+5,Rotherham Scorchers,33,120
+5,Rotherham Scorchers,34,146
+5,Rotherham Scorchers,35,165
+5,Rotherham Scorchers,36,128
+5,Rotherham Scorchers,37,131
+5,Rotherham Scorchers,38,148
+5,Rotherham Scorchers,39,130
+5,Rotherham Scorchers,40,144
+5,Rotherham Scorchers,41,161
+5,Rotherham Scorchers,42,151
+5,Rotherham Scorchers,43,123
+5,Rotherham Scorchers,44,166
+5,Rotherham Scorchers,45,103
+5,Rotherham Scorchers,46,151
+5,Rotherham Scorchers,47,134
+5,Rotherham Scorchers,48,166
+5,Rotherham Scorchers,49,119
+5,Rotherham Scorchers,50,116
+5,Rotherham Scorchers,51,149
+5,Rotherham Scorchers,52,131
+5,Rotherham Scorchers,53,108
+5,Rotherham Scorchers,54,148
+5,Rotherham Scorchers,55,142
+5,Rotherham Scorchers,56,133
+5,Rotherham Scorchers,57,131
+5,Rotherham Scorchers,58,138
+5,Rotherham Scorchers,59,123
+5,Rotherham Scorchers,60,122
+5,Rotherham Scorchers,61,94
+5,Rotherham Scorchers,62,151
+5,Rotherham Scorchers,63,152
+5,Rotherham Scorchers,64,131
+5,Rotherham Scorchers,65,120
+5,Rotherham Scorchers,66,105
+5,Rotherham Scorchers,67,148
+5,Rotherham Scorchers,68,102
+5,Rotherham Scorchers,69,156
+5,Rotherham Scorchers,70,130
+5,Rotherham Scorchers,71,124
+5,Rotherham Scorchers,72,143
+5,Rotherham Scorchers,73,144
+5,Rotherham Scorchers,74,124
+5,Rotherham Scorchers,75,110
+5,Rotherham Scorchers,76,117
+5,Rotherham Scorchers,77,119
+5,Rotherham Scorchers,78,150
+5,Rotherham Scorchers,79,98
+5,Rotherham Scorchers,80,143
+5,Rotherham Scorchers,81,121
+5,Rotherham Scorchers,82,144
+5,Rotherham Scorchers,83,140
+5,Rotherham Scorchers,84,169
+5,Rotherham Scorchers,85,144
+5,Rotherham Scorchers,86,114
+5,Rotherham Scorchers,87,126
+5,Rotherham Scorchers,88,105
+5,Rotherham Scorchers,89,137
+5,Rotherham Scorchers,90,138
+5,Rotherham Scorchers,91,147
+5,Rotherham Scorchers,92,101
+5,Rotherham Scorchers,93,115
+5,Rotherham Scorchers,94,116
+5,Rotherham Scorchers,95,151
+5,Rotherham Scorchers,96,123
+5,Rotherham Scorchers,97,117
+5,Rotherham Scorchers,98,125
+5,Rotherham Scorchers,99,116
+5,Rotherham Scorchers,100,163
+6,Blackpool Sixers,1,130
+6,Blackpool Sixers,2,148
+6,Blackpool Sixers,3,143
+6,Blackpool Sixers,4,134
+6,Blackpool Sixers,5,188
+6,Blackpool Sixers,6,158
+6,Blackpool Sixers,7,130
+6,Blackpool Sixers,8,157
+6,Blackpool Sixers,9,178
+6,Blackpool Sixers,10,216
+6,Blackpool Sixers,11,163
+6,Blackpool Sixers,12,158
+6,Blackpool Sixers,13,175
+6,Blackpool Sixers,14,160
+6,Blackpool Sixers,15,177
+6,Blackpool Sixers,16,190
+6,Blackpool Sixers,17,157
+6,Blackpool Sixers,18,154
+6,Blackpool Sixers,19,152
+6,Blackpool Sixers,20,148
+6,Blackpool Sixers,21,157
+6,Blackpool Sixers,22,119
+6,Blackpool Sixers,23,198
+6,Blackpool Sixers,24,187
+6,Blackpool Sixers,25,178
+6,Blackpool Sixers,26,181
+6,Blackpool Sixers,27,197
+6,Blackpool Sixers,28,178
+6,Blackpool Sixers,29,149
+6,Blackpool Sixers,30,163
+6,Blackpool Sixers,31,139
+6,Blackpool Sixers,32,140
+6,Blackpool Sixers,33,188
+6,Blackpool Sixers,34,187
+6,Blackpool Sixers,35,192
+6,Blackpool Sixers,36,164
+6,Blackpool Sixers,37,171
+6,Blackpool Sixers,38,147
+6,Blackpool Sixers,39,193
+6,Blackpool Sixers,40,129
+6,Blackpool Sixers,41,150
+6,Blackpool Sixers,42,173
+6,Blackpool Sixers,43,159
+6,Blackpool Sixers,44,138
+6,Blackpool Sixers,45,118
+6,Blackpool Sixers,46,168
+6,Blackpool Sixers,47,149
+6,Blackpool Sixers,48,153
+6,Blackpool Sixers,49,163
+6,Blackpool Sixers,50,179
+6,Blackpool Sixers,51,177
+6,Blackpool Sixers,52,168
+6,Blackpool Sixers,53,146
+6,Blackpool Sixers,54,149
+6,Blackpool Sixers,55,207
+6,Blackpool Sixers,56,160
+6,Blackpool Sixers,57,172
+6,Blackpool Sixers,58,147
+6,Blackpool Sixers,59,184
+6,Blackpool Sixers,60,133
+6,Blackpool Sixers,61,160
+6,Blackpool Sixers,62,162
+6,Blackpool Sixers,63,173
+6,Blackpool Sixers,64,174
+6,Blackpool Sixers,65,203
+6,Blackpool Sixers,66,133
+6,Blackpool Sixers,67,172
+6,Blackpool Sixers,68,143
+6,Blackpool Sixers,69,176
+6,Blackpool Sixers,70,193
+6,Blackpool Sixers,71,177
+6,Blackpool Sixers,72,165
+6,Blackpool Sixers,73,145
+6,Blackpool Sixers,74,161
+6,Blackpool Sixers,75,189
+6,Blackpool Sixers,76,154
+6,Blackpool Sixers,77,187
+6,Blackpool Sixers,78,196
+6,Blackpool Sixers,79,178
+6,Blackpool Sixers,80,155
+6,Blackpool Sixers,81,156
+6,Blackpool Sixers,82,139
+6,Blackpool Sixers,83,161
+6,Blackpool Sixers,84,167
+6,Blackpool Sixers,85,175
+6,Blackpool Sixers,86,145
+6,Blackpool Sixers,87,112
+6,Blackpool Sixers,88,177
+6,Blackpool Sixers,89,164
+6,Blackpool Sixers,90,140
+6,Blackpool Sixers,91,184
+6,Blackpool Sixers,92,135
+6,Blackpool Sixers,93,190
+6,Blackpool Sixers,94,161
+6,Blackpool Sixers,95,180
+6,Blackpool Sixers,96,133
+6,Blackpool Sixers,97,161
+6,Blackpool Sixers,98,152
+6,Blackpool Sixers,99,138
+6,Blackpool Sixers,100,180
+7,Castleford Thunder,1,132
+7,Castleford Thunder,2,124
+7,Castleford Thunder,3,139
+7,Castleford Thunder,4,109
+7,Castleford Thunder,5,138
+7,Castleford Thunder,6,146
+7,Castleford Thunder,7,133
+7,Castleford Thunder,8,143
+7,Castleford Thunder,9,119
+7,Castleford Thunder,10,134
+7,Castleford Thunder,11,113
+7,Castleford Thunder,12,125
+7,Castleford Thunder,13,162
+7,Castleford Thunder,14,119
+7,Castleford Thunder,15,119
+7,Castleford Thunder,16,115
+7,Castleford Thunder,17,94
+7,Castleford Thunder,18,119
+7,Castleford Thunder,19,105
+7,Castleford Thunder,20,109
+7,Castleford Thunder,21,128
+7,Castleford Thunder,22,108
+7,Castleford Thunder,23,123
+7,Castleford Thunder,24,132
+7,Castleford Thunder,25,130
+7,Castleford Thunder,26,152
+7,Castleford Thunder,27,130
+7,Castleford Thunder,28,95
+7,Castleford Thunder,29,119
+7,Castleford Thunder,30,122
+7,Castleford Thunder,31,122
+7,Castleford Thunder,32,155
+7,Castleford Thunder,33,163
+7,Castleford Thunder,34,138
+7,Castleford Thunder,35,102
+7,Castleford Thunder,36,127
+7,Castleford Thunder,37,166
+7,Castleford Thunder,38,125
+7,Castleford Thunder,39,122
+7,Castleford Thunder,40,172
+7,Castleford Thunder,41,157
+7,Castleford Thunder,42,140
+7,Castleford Thunder,43,140
+7,Castleford Thunder,44,138
+7,Castleford Thunder,45,92
+7,Castleford Thunder,46,128
+7,Castleford Thunder,47,142
+7,Castleford Thunder,48,119
+7,Castleford Thunder,49,127
+7,Castleford Thunder,50,120
+7,Castleford Thunder,51,125
+7,Castleford Thunder,52,136
+7,Castleford Thunder,53,120
+7,Castleford Thunder,54,99
+7,Castleford Thunder,55,108
+7,Castleford Thunder,56,128
+7,Castleford Thunder,57,104
+7,Castleford Thunder,58,100
+7,Castleford Thunder,59,110
+7,Castleford Thunder,60,114
+7,Castleford Thunder,61,108
+7,Castleford Thunder,62,126
+7,Castleford Thunder,63,133
+7,Castleford Thunder,64,115
+7,Castleford Thunder,65,95
+7,Castleford Thunder,66,106
+7,Castleford Thunder,67,107
+7,Castleford Thunder,68,81
+7,Castleford Thunder,69,139
+7,Castleford Thunder,70,117
+7,Castleford Thunder,71,120
+7,Castleford Thunder,72,140
+7,Castleford Thunder,73,155
+7,Castleford Thunder,74,100
+7,Castleford Thunder,75,150
+7,Castleford Thunder,76,131
+7,Castleford Thunder,77,166
+7,Castleford Thunder,78,90
+7,Castleford Thunder,79,151
+7,Castleford Thunder,80,153
+7,Castleford Thunder,81,82
+7,Castleford Thunder,82,157
+7,Castleford Thunder,83,122
+7,Castleford Thunder,84,101
+7,Castleford Thunder,85,121
+7,Castleford Thunder,86,103
+7,Castleford Thunder,87,126
+7,Castleford Thunder,88,150
+7,Castleford Thunder,89,127
+7,Castleford Thunder,90,134
+7,Castleford Thunder,91,137
+7,Castleford Thunder,92,122
+7,Castleford Thunder,93,126
+7,Castleford Thunder,94,109
+7,Castleford Thunder,95,81
+7,Castleford Thunder,96,133
+7,Castleford Thunder,97,134
+7,Castleford Thunder,98,123
+7,Castleford Thunder,99,127
+7,Castleford Thunder,100,91
+8,Oldham Super Kings,1,178
+8,Oldham Super Kings,2,172
+8,Oldham Super Kings,3,174
+8,Oldham Super Kings,4,172
+8,Oldham Super Kings,5,149
+8,Oldham Super Kings,6,137
+8,Oldham Super Kings,7,143
+8,Oldham Super Kings,8,231
+8,Oldham Super Kings,9,163
+8,Oldham Super Kings,10,194
+8,Oldham Super Kings,11,167
+8,Oldham Super Kings,12,209
+8,Oldham Super Kings,13,178
+8,Oldham Super Kings,14,202
+8,Oldham Super Kings,15,193
+8,Oldham Super Kings,16,184
+8,Oldham Super Kings,17,163
+8,Oldham Super Kings,18,164
+8,Oldham Super Kings,19,178
+8,Oldham Super Kings,20,181
+8,Oldham Super Kings,21,144
+8,Oldham Super Kings,22,173
+8,Oldham Super Kings,23,187
+8,Oldham Super Kings,24,171
+8,Oldham Super Kings,25,178
+8,Oldham Super Kings,26,162
+8,Oldham Super Kings,27,185
+8,Oldham Super Kings,28,192
+8,Oldham Super Kings,29,172
+8,Oldham Super Kings,30,164
+8,Oldham Super Kings,31,163
+8,Oldham Super Kings,32,205
+8,Oldham Super Kings,33,193
+8,Oldham Super Kings,34,143
+8,Oldham Super Kings,35,161
+8,Oldham Super Kings,36,201
+8,Oldham Super Kings,37,179
+8,Oldham Super Kings,38,147
+8,Oldham Super Kings,39,159
+8,Oldham Super Kings,40,154
+8,Oldham Super Kings,41,176
+8,Oldham Super Kings,42,160
+8,Oldham Super Kings,43,188
+8,Oldham Super Kings,44,177
+8,Oldham Super Kings,45,194
+8,Oldham Super Kings,46,193
+8,Oldham Super Kings,47,167
+8,Oldham Super Kings,48,189
+8,Oldham Super Kings,49,164
+8,Oldham Super Kings,50,203
+8,Oldham Super Kings,51,169
+8,Oldham Super Kings,52,160
+8,Oldham Super Kings,53,196
+8,Oldham Super Kings,54,177
+8,Oldham Super Kings,55,169
+8,Oldham Super Kings,56,192
+8,Oldham Super Kings,57,191
+8,Oldham Super Kings,58,168
+8,Oldham Super Kings,59,178
+8,Oldham Super Kings,60,153
+8,Oldham Super Kings,61,173
+8,Oldham Super Kings,62,196
+8,Oldham Super Kings,63,171
+8,Oldham Super Kings,64,178
+8,Oldham Super Kings,65,159
+8,Oldham Super Kings,66,160
+8,Oldham Super Kings,67,190
+8,Oldham Super Kings,68,177
+8,Oldham Super Kings,69,179
+8,Oldham Super Kings,70,156
+8,Oldham Super Kings,71,182
+8,Oldham Super Kings,72,188
+8,Oldham Super Kings,73,162
+8,Oldham Super Kings,74,174
+8,Oldham Super Kings,75,205
+8,Oldham Super Kings,76,177
+8,Oldham Super Kings,77,186
+8,Oldham Super Kings,78,174
+8,Oldham Super Kings,79,202
+8,Oldham Super Kings,80,178
+8,Oldham Super Kings,81,180
+8,Oldham Super Kings,82,153
+8,Oldham Super Kings,83,190
+8,Oldham Super Kings,84,178
+8,Oldham Super Kings,85,146
+8,Oldham Super Kings,86,154
+8,Oldham Super Kings,87,200
+8,Oldham Super Kings,88,178
+8,Oldham Super Kings,89,183
+8,Oldham Super Kings,90,164
+8,Oldham Super Kings,91,176
+8,Oldham Super Kings,92,168
+8,Oldham Super Kings,93,228
+8,Oldham Super Kings,94,181
+8,Oldham Super Kings,95,230
+8,Oldham Super Kings,96,213
+8,Oldham Super Kings,97,182
+8,Oldham Super Kings,98,152
+8,Oldham Super Kings,99,185
+8,Oldham Super Kings,100,139
+9,Blackburn Knight Riders,1,179
+9,Blackburn Knight Riders,2,175
+9,Blackburn Knight Riders,3,218
+9,Blackburn Knight Riders,4,189
+9,Blackburn Knight Riders,5,191
+9,Blackburn Knight Riders,6,168
+9,Blackburn Knight Riders,7,155
+9,Blackburn Knight Riders,8,198
+9,Blackburn Knight Riders,9,156
+9,Blackburn Knight Riders,10,169
+9,Blackburn Knight Riders,11,175
+9,Blackburn Knight Riders,12,143
+9,Blackburn Knight Riders,13,187
+9,Blackburn Knight Riders,14,128
+9,Blackburn Knight Riders,15,163
+9,Blackburn Knight Riders,16,173
+9,Blackburn Knight Riders,17,180
+9,Blackburn Knight Riders,18,187
+9,Blackburn Knight Riders,19,150
+9,Blackburn Knight Riders,20,171
+9,Blackburn Knight Riders,21,169
+9,Blackburn Knight Riders,22,163
+9,Blackburn Knight Riders,23,184
+9,Blackburn Knight Riders,24,189
+9,Blackburn Knight Riders,25,189
+9,Blackburn Knight Riders,26,153
+9,Blackburn Knight Riders,27,145
+9,Blackburn Knight Riders,28,191
+9,Blackburn Knight Riders,29,173
+9,Blackburn Knight Riders,30,212
+9,Blackburn Knight Riders,31,171
+9,Blackburn Knight Riders,32,184
+9,Blackburn Knight Riders,33,170
+9,Blackburn Knight Riders,34,190
+9,Blackburn Knight Riders,35,171
+9,Blackburn Knight Riders,36,192
+9,Blackburn Knight Riders,37,162
+9,Blackburn Knight Riders,38,170
+9,Blackburn Knight Riders,39,183
+9,Blackburn Knight Riders,40,196
+9,Blackburn Knight Riders,41,193
+9,Blackburn Knight Riders,42,169
+9,Blackburn Knight Riders,43,162
+9,Blackburn Knight Riders,44,180
+9,Blackburn Knight Riders,45,178
+9,Blackburn Knight Riders,46,170
+9,Blackburn Knight Riders,47,180
+9,Blackburn Knight Riders,48,179
+9,Blackburn Knight Riders,49,131
+9,Blackburn Knight Riders,50,200
+9,Blackburn Knight Riders,51,158
+9,Blackburn Knight Riders,52,124
+9,Blackburn Knight Riders,53,147
+9,Blackburn Knight Riders,54,164
+9,Blackburn Knight Riders,55,164
+9,Blackburn Knight Riders,56,170
+9,Blackburn Knight Riders,57,134
+9,Blackburn Knight Riders,58,215
+9,Blackburn Knight Riders,59,193
+9,Blackburn Knight Riders,60,162
+9,Blackburn Knight Riders,61,146
+9,Blackburn Knight Riders,62,171
+9,Blackburn Knight Riders,63,177
+9,Blackburn Knight Riders,64,144
+9,Blackburn Knight Riders,65,175
+9,Blackburn Knight Riders,66,169
+9,Blackburn Knight Riders,67,150
+9,Blackburn Knight Riders,68,161
+9,Blackburn Knight Riders,69,176
+9,Blackburn Knight Riders,70,173
+9,Blackburn Knight Riders,71,162
+9,Blackburn Knight Riders,72,169
+9,Blackburn Knight Riders,73,182
+9,Blackburn Knight Riders,74,120
+9,Blackburn Knight Riders,75,190
+9,Blackburn Knight Riders,76,147
+9,Blackburn Knight Riders,77,178
+9,Blackburn Knight Riders,78,186
+9,Blackburn Knight Riders,79,180
+9,Blackburn Knight Riders,80,186
+9,Blackburn Knight Riders,81,162
+9,Blackburn Knight Riders,82,147
+9,Blackburn Knight Riders,83,166
+9,Blackburn Knight Riders,84,161
+9,Blackburn Knight Riders,85,179
+9,Blackburn Knight Riders,86,181
+9,Blackburn Knight Riders,87,164
+9,Blackburn Knight Riders,88,198
+9,Blackburn Knight Riders,89,175
+9,Blackburn Knight Riders,90,157
+9,Blackburn Knight Riders,91,162
+9,Blackburn Knight Riders,92,183
+9,Blackburn Knight Riders,93,172
+9,Blackburn Knight Riders,94,158
+9,Blackburn Knight Riders,95,164
+9,Blackburn Knight Riders,96,148
+9,Blackburn Knight Riders,97,184
+9,Blackburn Knight Riders,98,168
+9,Blackburn Knight Riders,99,143
+9,Blackburn Knight Riders,100,173

@@ -131,3 +131,30 @@ async def get_venues():
 
     conn.close()
     return venues
+
+@app.get("/games", response_model=List[Game])
+async def get_games():
+    """Get all games with venue info"""
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        SELECT g.id, g.home_team, g.away_team, g.venue_id, v.name
+        FROM games g
+        LEFT JOIN venues v ON g.venue_id = v.id
+    """)
+    
+    games = [
+        {
+            "id": row[0],
+            "home_team": row[1],
+            "away_team": row[2],
+            "venue_id": row[3],
+            "venue_name": row[4] or "Unknown Venue"
+        }
+        for row in cursor.fetchall()
+    ]
+
+    conn.close()
+    return games
+

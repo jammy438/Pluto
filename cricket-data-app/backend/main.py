@@ -33,7 +33,7 @@ def init_database():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS venues (
             id INTEGER PRIMARY KEY,
-            name TEXT NOT NULL,
+            name TEXT NOT NULL
         )
     ''')
 
@@ -120,10 +120,6 @@ async def startup_event():
         init_database()
         load_csv_data()
 
-@app.get("/")
-async def read_root():
-    return {"message": "Cricket Data API is running"}
-
 @app.get("/venues", response_model=List[Venue])
 async def get_venues():
     """Get all venues"""
@@ -131,7 +127,7 @@ async def get_venues():
     cursor = conn.cursor()
     
     cursor.execute("SELECT * FROM venues")
-    Venues = [{id:row[0], "name":row[1]} for row in cursor.fetchall()]
+    venues = [{"id":row[0], "name":row[1]} for row in cursor.fetchall()]
 
     conn.close()
-    return Venues
+    return venues

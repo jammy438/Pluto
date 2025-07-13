@@ -11,11 +11,11 @@ app = FastAPI(title="Cricket Data API", version="1.0.0")
 #Enable CORS for frontend communication
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000", "http://localhost:5500"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    )
+)
 
 @app.get("/")
 async def root():
@@ -32,28 +32,29 @@ def init_database():
     #create tables
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS venues (
-            id INTEGER PRIMARY KEY,
-            name TEXT NOT NULL
+            venue_id INTEGER PRIMARY KEY,
+            venue_name TEXT NOT NULL
         )
     ''')
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS games (
-            id INTEGER PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             home_team TEXT NOT NULL,
             away_team TEXT NOT NULL,
+            date TEXT,
             venue_id INTEGER,
-            FOREIGN KEY (venue_id) REFERENCES venues (id)
+            FOREIGN KEY (venue_id) REFERENCES venues (venue_id)
         )
     ''')
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS simulations (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            game_id INTEGER,
-            home_score INTEGER,
-            away_score INTEGER,
-            FOREIGN KEY (game_id) REFERENCES games (id)
+            team_id INTEGER,
+            team TEXT,
+            simulation_run INTEGER,
+            results INTEGER
         )
     ''')
 
@@ -64,24 +65,25 @@ def load_csv_data():
     """Load data from CSV files into the database"""
     conn = sqlite3.connect(DATABASE_PATH)
 
-
     try:
 
         # Load venues
-        if os.path.exists('venues.csv'):
-            venues_df = pd.read_csv('venues.csv')
+        if os.path.exists('data/venues.csv'):
+            venues_df = pd.read_csv('data/venues.csv')
             venues_df.to_sql('venues', conn, if_exists='replace', index=False)
             print("venues.csv loaded successfully")
         
         # Load games
-        if os.path.exists('games.csv'):
-            games_df = pd.read_csv('games.csv')
+        if os.path.exists('data/games.csv'):
+            games_df = pd.read_csv('data/games.csv')
+            games_df = games_df.reset_index()
+            games_df['id'] = games_df.index + 1
             games_df.to_sql('games', conn, if_exists='replace', index=False)
             print("games.csv loaded successfully")
         
         # Load simulations
-        if os.path.exists('simulations.csv'):
-            simulations_df = pd.read_csv('simulations.csv')
+        if os.path.exists('data/simulations.csv'):
+            simulations_df = pd.read_csv('data/simulations.csv')
             simulations_df.to_sql('simulations', conn, if_exists='replace', index=False)
             print("simulations.csv loaded successfully")
 
@@ -103,8 +105,6 @@ class Game(BaseModel):
     venue_name: str
 
 class Simulation(BaseModel):
-    id: int
-    game_id: int
     home_score: int
     away_score: int
 
@@ -126,7 +126,7 @@ async def get_venues():
     conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
     
-    cursor.execute("SELECT * FROM venues")
+    cursor.execute("SELECT venue_id, venue_name FROM venues")
     venues = [{"id":row[0], "name":row[1]} for row in cursor.fetchall()]
 
     conn.close()
@@ -139,9 +139,9 @@ async def get_games():
     cursor = conn.cursor()
     
     cursor.execute("""
-        SELECT g.id, g.home_team, g.away_team, g.venue_id, v.name
+        SELECT g.id, g.home_team, g.away_team, g.venue_id, v.venue_name
         FROM games g
-        LEFT JOIN venues v ON g.venue_id = v.id
+        LEFT JOIN venues v ON g.venue_id = v.venue_id
     """)
     
     games = [
@@ -166,9 +166,9 @@ async def get_game_analysis(game_id: int):
     
     # Get game details
     cursor.execute("""
-        SELECT g.id, g.home_team, g.away_team, g.venue_id, v.name
+        SELECT g.id, g.home_team, g.away_team, g.venue_id, v.venue_name
         FROM games g
-        LEFT JOIN venues v ON g.venue_id = v.id
+        LEFT JOIN venues v ON g.venue_id = v.venue_id
         WHERE g.id = ?
     """, (game_id,))
     
@@ -184,19 +184,29 @@ async def get_game_analysis(game_id: int):
         venue_name=game_row[4] or "Unknown Venue"
     )
     
-    # Get simulations for the game
+    # Get simulations for the teams
     cursor.execute("""
-        SELECT home_score, away_score
-        FROM simulations
-        WHERE game_id = ?
-    """, (game_id,))
+        SELECT results FROM simulations 
+        WHERE team = ? 
+        LIMIT 20
+    """, (game.home_team,))
+    home_results = [row[0] for row in cursor.fetchall()]
+    
+    cursor.execute("""
+        SELECT results FROM simulations 
+        WHERE team = ? 
+        LIMIT 20
+    """, (game.away_team,))
+    away_results = [row[0] for row in cursor.fetchall()]
     
     simulations = []
     home_wins = 0
-    total_sims = 0
+    total_sims = min(len(home_results), len(away_results), 20)
     
-    for row in cursor.fetchall():
-        home_score, away_score = row[0], row[1]
+    for i in range(total_sims):
+        home_score = home_results[i] if i < len(home_results) else 150
+        away_score = away_results[i] if i < len(away_results) else 150
+        
         simulations.append({
             "home_score": home_score,
             "away_score": away_score
@@ -204,7 +214,6 @@ async def get_game_analysis(game_id: int):
         
         if home_score > away_score:
             home_wins += 1
-        total_sims += 1
     
     conn.close()
 
@@ -216,7 +225,7 @@ async def get_game_analysis(game_id: int):
     return {
         "game": game,
         "simulations": simulations,
-        "home_win_percentage": round(home_win_percentage, 2),
+        "home_win_probability": round(home_win_percentage, 2),
         "total_simulations": total_sims
     }
 
@@ -235,26 +244,18 @@ async def get_histogram_data(game_id: int):
     home_team, away_team = game_row
     
     # Get simulation scores
-    cursor.execute("""
-        SELECT home_score, away_score
-        FROM simulations
-        WHERE game_id = ?
-    """, (game_id,))
+    cursor.execute("SELECT results FROM simulations WHERE team = ?", (home_team,))
+    home_scores = [row[0] for row in cursor.fetchall()]
     
-    simulations = cursor.fetchall()
+    cursor.execute("SELECT results FROM simulations WHERE team = ?", (away_team,))
+    away_scores = [row[0] for row in cursor.fetchall()]
+    
     conn.close()
     
-    if not simulations:
+    if not home_scores or not away_scores:
         raise HTTPException(status_code=404, detail="No simulation data found")
     
     # Create histogram data
-    home_scores = [sim[0] for sim in simulations]
-    away_scores = [sim[1] for sim in simulations]
-    
-    # Create bins for histogram
-    min_score = min(min(home_scores), min(away_scores))
-    max_score = max(max(home_scores), max(away_scores))
-    
     # Create frequency distributions
     from collections import Counter
     home_freq = Counter(home_scores)
@@ -267,7 +268,7 @@ async def get_histogram_data(game_id: int):
         "away_scores": away_scores,
         "home_frequency": dict(home_freq),
         "away_frequency": dict(away_freq),
-        "score_range": {"min": min_score, "max": max_score}
+        "score_range": {"min": min(min(home_scores), min(away_scores)), "max": max(max(home_scores), max(away_scores))}
     }
 
 if __name__ == "__main__":

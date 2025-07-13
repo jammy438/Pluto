@@ -1,6 +1,6 @@
 # Cricket Simulation Analysis App
 
-A full-stack web application for analyzing cricket game simulations and win probabilities. The app displays interactive histograms showing score distributions and calculates win percentages based on simulation data.
+A full-stack web application for analysing cricket game simulations and win probabilities. The app displays interactive histograms showing score distributions and calculates win percentages based on simulation data.
 
 ## Features
 
@@ -115,7 +115,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 python -m uvicorn main:app --reload
 ```
 
-✅ Backend will run at `http://localhost:8000`
+Backend runs at `http://localhost:8000`
 
 ### Start the Frontend (Terminal 2)
 
@@ -124,7 +124,7 @@ cd frontend
 npm start
 ```
 
-✅ Frontend will open automatically at `http://localhost:3000`
+Frontend will open automatically at `http://localhost:3000`
 
 ### Access the Application
 

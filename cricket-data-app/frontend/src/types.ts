@@ -17,7 +17,7 @@ export interface Venue {
   
   export interface Games_analysis {
     game: Game;
-    simulations: Simulation;
+    simulations: Simulation[];
     home_win_probability: number;
     total_simulations: number;
   }
@@ -25,8 +25,8 @@ export interface Venue {
   export interface Histogram_data {
     home_team: string;
     away_team: string;
-    home_scores: number;
-    away_scores: number;
+    home_scores: number[];
+    away_scores: number[];
     home_frequency: Record<string, number>;
     away_frequency: Record<string, number>;
     score_range: { min: number; max: number };

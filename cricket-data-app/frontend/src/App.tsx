@@ -3,6 +3,7 @@ import Histogram from './histogram';
 import GameInfo from './gameInfo';
 import apiService from './apiService';
 import { Game, Games_analysis, Histogram_data } from './types';
+import './App.css'
 
 
 const App: React.FC = () => {

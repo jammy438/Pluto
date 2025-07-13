@@ -5,7 +5,6 @@ import apiService from './apiService';
 import { Game, Games_analysis, Histogram_data } from './types';
 import './App.css'
 
-
 const App: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [selectedGameId, setSelectedGameId] = useState<number | null>(null);
@@ -54,11 +53,21 @@ const App: React.FC = () => {
     }
   };
 
+  const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const gameId = parseInt(event.target.value);
+    if (gameId) {
+      handleGameSelect(gameId);
+    } else {
+      setSelectedGameId(null);
+      setGameAnalysis(null);
+      setHistogramData(null);
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Cricket Simulation Analysis</h1>
-        <p>Analyze cricket game simulations and win probabilities</p>
       </header>
 
       <main className="App-main">
@@ -73,21 +82,20 @@ const App: React.FC = () => {
           <h2>Select a Game</h2>
           {loading && <p>Loading...</p>}
           
-          <div className="games-grid">
-            {games.map((game) => (
-              <div
-                key={game.id}
-                className={`game-card ${selectedGameId === game.id ? 'selected' : ''}`}
-                onClick={() => handleGameSelect(game.id)}
-              >
-                <div className="game-matchup">
-                  <span className="home-team">{game.home_team}</span>
-                  <span className="vs">vs</span>
-                  <span className="away-team">{game.away_team}</span>
-                </div>
-                <div className="game-venue">{game.venue_name}</div>
-              </div>
-            ))}
+          <div className="dropdown-container">
+            <select 
+              value={selectedGameId || ''}
+              onChange={handleDropdownChange}
+              className="game-dropdown"
+              disabled={loading || games.length === 0}
+            >
+              <option value="">Choose a game...</option>
+              {games.map((game) => (
+                <option key={game.id} value={game.id}>
+                  {game.home_team} vs {game.away_team} - {game.venue_name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 

@@ -128,3 +128,21 @@ describe('App Component', () => {
       expect(dropdown).toBeDisabled();
     });
   });
+  test('retry button works after error', async () => {
+    mockedApiService.getGames
+      .mockRejectedValueOnce(new Error('API Error'))
+      .mockResolvedValue(mockGames);
+    
+    render(<App />);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/Failed to load games/)).toBeInTheDocument();
+    });
+
+    const retryButton = screen.getByText('Retry');
+    fireEvent.click(retryButton);
+
+    await waitFor(() => {
+      expect(mockedApiService.getGames).toHaveBeenCalledTimes(2);
+    });
+  });

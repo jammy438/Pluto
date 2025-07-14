@@ -34,6 +34,12 @@ cricket-data-app/
 ├── backend/
 │   ├── main.py             # FastAPI application
 │   ├── requirements.txt    # Python dependencies
+│   ├── requirements-test.txt # Test dependencies
+│   ├── pytest.ini         # Pytest configuration
+│   ├── conftest.py         # Pytest fixtures
+│   ├── tests/              # Test directory
+│   │   ├── __init__.py     # Empty file
+│   │   └── test_main.py    # Backend tests
 │   ├── data/               # CSV data files
 │   │   ├── games.csv       # Match information
 │   │   ├── venues.csv      # Venue details
@@ -42,11 +48,18 @@ cricket-data-app/
 ├── frontend/
 │   ├── src/
 │   │   ├── App.tsx         # Main application component
+│   │   ├── App.test.tsx    # App component tests
 │   │   ├── App.css         # Application styles
 │   │   ├── histogram.tsx   # Histogram chart component
+│   │   ├── histogram.test.tsx # Histogram tests
 │   │   ├── gameInfo.tsx    # Game analysis component
+│   │   ├── gameInfo.test.tsx # GameInfo tests
 │   │   ├── apiService.ts   # API communication layer
+│   │   ├── apiService.test.ts # API service tests
 │   │   ├── types.ts        # TypeScript type definitions
+│   │   ├── setupTests.ts   # Test configuration
+│   │   ├── __mocks__/      # Test mocks
+│   │   │   └── apiService.ts # API service mock
 │   │   └── index.tsx       # Application entry point
 │   │   └── index.css       # Base styles
 │   ├── public/
@@ -84,7 +97,13 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Create the data directory and add your CSV files:
+4. Install test dependencies:
+
+```bash
+pip install -r requirements-test.txt
+```
+
+5. Create the data directory and add your CSV files:
 
 ```bash
 mkdir data
@@ -131,6 +150,83 @@ Frontend will open automatically at `http://localhost:3000`
 Open your browser and go to `http://localhost:3000` to use the app.
 
 **Note**: You need both servers running simultaneously for the app to work properly.
+
+## Running Tests
+
+### Backend Tests
+
+1. Navigate to the backend directory and activate virtual environment:
+
+```bash
+cd backend
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+2. Run all tests:
+
+```bash
+pytest
+```
+
+3. Run tests with coverage:
+
+```bash
+pytest --cov=main --cov-report=html
+```
+
+4. Run specific test file:
+
+```bash
+pytest tests/test_main.py
+```
+
+5. Run tests with verbose output:
+
+```bash
+pytest -v
+```
+
+### Frontend Tests
+
+1. Navigate to the frontend directory:
+
+```bash
+cd frontend
+```
+
+2. Run all tests:
+
+```bash
+npm test
+```
+
+3. Run tests with coverage:
+
+```bash
+npm run test:coverage
+```
+
+4. Run tests in CI mode (no watch):
+
+```bash
+npm run test:ci
+```
+
+5. Run specific test file:
+
+```bash
+npm test App.test.tsx
+```
+
+6. Run tests in watch mode:
+
+```bash
+npm run test:watch
+```
+
+### Test Coverage
+
+Both backend and frontend are configured with 80% coverage thresholds. Coverage reports are generated in HTML format for detailed analysis.
 
 ## Data Format
 
@@ -203,6 +299,14 @@ The app calculates win probabilities by comparing simulation results between hom
 3. **Types**: Update TypeScript interfaces in `types.ts`
 4. **Styling**: Modify `App.css` for visual changes
 
+### Testing Guidelines
+
+1. **Write tests for new features** - All new components and API endpoints should include tests
+2. **Maintain coverage** - Keep test coverage above 80%
+3. **Test edge cases** - Include tests for error conditions and boundary cases
+4. **Use mocks appropriately** - Mock external dependencies in tests
+5. **Run tests before commits** - Ensure all tests pass before pushing changes
+
 ### Database Schema
 
 The app automatically creates SQLite tables from CSV data:
@@ -238,10 +342,19 @@ The app automatically creates SQLite tables from CSV data:
 - Check `apiService.ts` has correct API base URL
 - Verify no firewall blocking ports 3000 or 8000
 
+**Test Failures**
+
+- Ensure all dependencies are installed (`requirements-test.txt` for backend, test packages for frontend)
+- Check that test database permissions are correct
+- Verify mock configurations are properly set up
+
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/new-feature`)
-3. Commit your changes (`git commit -am 'Add new feature'`)
-4. Push to the branch (`git push origin feature/new-feature`)
-5. Create a Pull Request
+3. **Run tests** to ensure existing functionality works (`pytest` for backend, `npm test` for frontend)
+4. **Add tests** for your new feature
+5. **Ensure test coverage** remains above 80%
+6. Commit your changes (`git commit -am 'Add new feature'`)
+7. Push to the branch (`git push origin feature/new-feature`)
+8. Create a Pull Request

@@ -47,3 +47,27 @@ const mockHistogramData = {
   score_range: { min: 140, max: 160 }
 };
 
+describe('App Component', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+  
+    test('renders Cricket Simulation Analysis title', () => {
+      mockedApiService.getGames.mockResolvedValue([]);
+      render(<App />);
+      expect(screen.getByText('Cricket Simulation Analysis')).toBeInTheDocument();
+    });
+  
+    test('loads and displays games on component mount', async () => {
+      mockedApiService.getGames.mockResolvedValue(mockGames);
+      
+      render(<App />);
+      
+      await waitFor(() => {
+        expect(mockedApiService.getGames).toHaveBeenCalledTimes(1);
+      });
+  
+      expect(screen.getByText('Team A vs Team B - Test Ground')).toBeInTheDocument();
+    });
+  });
+  

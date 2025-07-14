@@ -123,4 +123,50 @@ describe('Histogram Component', () => {
     expect(xAxisTitle).toBeInTheDocument();
   });
 
-  
+  test('handles simple data correctly', () => {
+    render(<Histogram data={simpleHistogramData} />);
+    
+    expect(screen.getByText('Simple Home (Home)')).toBeInTheDocument();
+    expect(screen.getByText('Simple Away (Away)')).toBeInTheDocument();
+    
+    const svg = document.querySelector('svg.histogram-svg');
+    expect(svg).toBeInTheDocument();
+  });
+
+  test('renders with empty frequency data', () => {
+    const emptyData: Histogram_data = {
+      home_team: 'Empty Home',
+      away_team: 'Empty Away',
+      home_scores: [],
+      away_scores: [],
+      home_frequency: {},
+      away_frequency: {},
+      score_range: { min: 0, max: 0 }
+    };
+
+    render(<Histogram data={emptyData} />);
+    
+    expect(screen.getByText('Simulation Results Distribution')).toBeInTheDocument();
+    expect(screen.getByText('Empty Home (Home)')).toBeInTheDocument();
+  });
+
+  test('handles data with single score', () => {
+    const singleScoreData: Histogram_data = {
+      home_team: 'Single Home',
+      away_team: 'Single Away',
+      home_scores: [150],
+      away_scores: [145],
+      home_frequency: { '150': 1 },
+      away_frequency: { '145': 1 },
+      score_range: { min: 145, max: 150 }
+    };
+
+    render(<Histogram data={singleScoreData} />);
+    
+    const svg = document.querySelector('svg.histogram-svg');
+    expect(svg).toBeInTheDocument();
+    
+    const bars = document.querySelectorAll('.histogram-bar');
+    expect(bars.length).toBeGreaterThan(0);
+  });
+

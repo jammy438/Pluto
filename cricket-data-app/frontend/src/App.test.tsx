@@ -80,3 +80,23 @@ describe('App Component', () => {
       expect(screen.getByText(/Failed to load games/)).toBeInTheDocument();
     });
   });
+
+  test('selects game and loads analysis', async () => {
+    mockedApiService.getGames.mockResolvedValue(mockGames);
+    mockedApiService.getGameAnalysis.mockResolvedValue(mockGameAnalysis);
+    mockedApiService.getHistogramData.mockResolvedValue(mockHistogramData);
+    
+    render(<App />);
+    
+    await waitFor(() => {
+      expect(screen.getByDisplayValue('')).toBeInTheDocument();
+    });
+
+    const dropdown = screen.getByDisplayValue('');
+    fireEvent.change(dropdown, { target: { value: '1' } });
+
+    await waitFor(() => {
+      expect(mockedApiService.getGameAnalysis).toHaveBeenCalledWith(1);
+      expect(mockedApiService.getHistogramData).toHaveBeenCalledWith(1);
+    });
+  });

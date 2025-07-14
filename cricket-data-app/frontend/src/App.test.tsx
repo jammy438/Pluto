@@ -100,3 +100,31 @@ describe('App Component', () => {
       expect(mockedApiService.getHistogramData).toHaveBeenCalledWith(1);
     });
   });
+
+  test('displays loading state', () => {
+    mockedApiService.getGames.mockImplementation(() => new Promise(() => {}));
+    
+    render(<App />);
+    
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
+  });
+
+  test('dropdown is disabled when loading', () => {
+    mockedApiService.getGames.mockImplementation(() => new Promise(() => {}));
+    
+    render(<App />);
+    
+    const dropdown = screen.getByRole('combobox');
+    expect(dropdown).toBeDisabled();
+  });
+
+  test('dropdown is disabled when no games are available', async () => {
+    mockedApiService.getGames.mockResolvedValue([]);
+    
+    render(<App />);
+    
+    await waitFor(() => {
+      const dropdown = screen.getByRole('combobox');
+      expect(dropdown).toBeDisabled();
+    });
+  });

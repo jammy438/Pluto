@@ -146,3 +146,47 @@ describe('App Component', () => {
       expect(mockedApiService.getGames).toHaveBeenCalledTimes(2);
     });
   });
+
+  test('clears analysis when no game is selected', async () => {
+    mockedApiService.getGames.mockResolvedValue(mockGames);
+    mockedApiService.getGameAnalysis.mockResolvedValue(mockGameAnalysis);
+    mockedApiService.getHistogramData.mockResolvedValue(mockHistogramData);
+    
+    render(<App />);
+    
+    await waitFor(() => {
+      expect(screen.getByDisplayValue('')).toBeInTheDocument();
+    });
+
+    const dropdown = screen.getByDisplayValue('');
+    fireEvent.change(dropdown, { target: { value: '1' } });
+
+    await waitFor(() => {
+      expect(screen.getByText('Game Analysis')).toBeInTheDocument();
+    });
+
+    // deselects the game
+    fireEvent.change(dropdown, { target: { value: '' } });
+
+    await waitFor(() => {
+      expect(screen.queryByText('Game Analysis')).not.toBeInTheDocument();
+    });
+  });
+  test('handles analysis loading error', async () => {
+    mockedApiService.getGames.mockResolvedValue(mockGames);
+    mockedApiService.getGameAnalysis.mockRejectedValue(new Error('Analysis Error'));
+    mockedApiService.getHistogramData.mockResolvedValue(mockHistogramData);
+    
+    render(<App />);
+    
+    await waitFor(() => {
+      expect(screen.getByDisplayValue('')).toBeInTheDocument();
+    });
+
+    const dropdown = screen.getByDisplayValue('');
+    fireEvent.change(dropdown, { target: { value: '1' } });
+
+    await waitFor(() => {
+      expect(screen.getByText('Failed to load game data')).toBeInTheDocument();
+    });
+  });

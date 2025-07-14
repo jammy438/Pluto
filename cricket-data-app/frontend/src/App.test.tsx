@@ -71,3 +71,12 @@ describe('App Component', () => {
     });
   });
   
+  test('handles API error when loading games', async () => {
+    mockedApiService.getGames.mockRejectedValue(new Error('API Error'));
+    
+    render(<App />);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/Failed to load games/)).toBeInTheDocument();
+    });
+  });

@@ -1,5 +1,5 @@
 // App.test.tsx
-import React from 'react';
+import React, { act } from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import App from './App';
@@ -48,33 +48,56 @@ const mockHistogramData = {
 };
 
 describe('App Component', () => {
-    beforeEach(() => {
-      jest.clearAllMocks();
-    });
-  
-    test('renders Cricket Simulation Analysis title', () => {
-      mockedApiService.getGames.mockResolvedValue([]);
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('renders Cricket Simulation Analysis title', async () => {
+    mockedApiService.getGames.mockResolvedValue([]);
+    
+    await act(async () => {
       render(<App />);
-      expect(screen.getByText('Cricket Simulation Analysis')).toBeInTheDocument();
     });
-  
-    test('loads and displays games on component mount', async () => {
-      mockedApiService.getGames.mockResolvedValue(mockGames);
-      
+    
+    expect(screen.getByText('Cricket Simulation Analysis')).toBeInTheDocument();
+  });
+
+  test('loads and displays games on component mount', async () => {
+    mockedApiService.getGames.mockResolvedValue(mockGames);
+    
+    await act(async () => {
       render(<App />);
+    });
+    
+    // Wait for the API call to complete and games to load
+    await waitFor(() => {
+      expect(mockedApiService.getGames).toHaveBeenCalledTimes(1);
+    });
+
+    // Check that the dropdown has the correct options by looking at the option elements
+    await waitFor(() => {
+      const dropdown = screen.getByRole('combobox');
+      const options = dropdown.querySelectorAll('option');
       
-      await waitFor(() => {
-        expect(mockedApiService.getGames).toHaveBeenCalledTimes(1);
-      });
-  
-      expect(screen.getByText('Team A vs Team B - Test Ground')).toBeInTheDocument();
+      // Should have 3 options: "Choose a game..." + 2 games
+      expect(options).toHaveLength(3);
+      
+      // Check the first game option
+      expect(options[1]).toHaveValue('1');
+      expect(options[1]).toHaveTextContent('Team A vs Team B - Test Ground');
+      
+      // Check the second game option
+      expect(options[2]).toHaveValue('2');
+      expect(options[2]).toHaveTextContent('Team C vs Team D - Another Ground');
     });
   });
-  
+
   test('handles API error when loading games', async () => {
     mockedApiService.getGames.mockRejectedValue(new Error('API Error'));
     
-    render(<App />);
+    await act(async () => {
+      render(<App />);
+    });
     
     await waitFor(() => {
       expect(screen.getByText(/Failed to load games/)).toBeInTheDocument();
@@ -86,14 +109,22 @@ describe('App Component', () => {
     mockedApiService.getGameAnalysis.mockResolvedValue(mockGameAnalysis);
     mockedApiService.getHistogramData.mockResolvedValue(mockHistogramData);
     
-    render(<App />);
+    await act(async () => {
+      render(<App />);
+    });
     
+    // Wait for games to load
     await waitFor(() => {
-      expect(screen.getByDisplayValue('')).toBeInTheDocument();
+      expect(mockedApiService.getGames).toHaveBeenCalledTimes(1);
     });
 
-    const dropdown = screen.getByDisplayValue('');
-    fireEvent.change(dropdown, { target: { value: '1' } });
+    // Find the dropdown by role instead of display value
+    const dropdown = screen.getByRole('combobox');
+    expect(dropdown).toBeInTheDocument();
+
+    await act(async () => {
+      fireEvent.change(dropdown, { target: { value: '1' } });
+    });
 
     await waitFor(() => {
       expect(mockedApiService.getGameAnalysis).toHaveBeenCalledWith(1);
@@ -101,18 +132,23 @@ describe('App Component', () => {
     });
   });
 
-  test('displays loading state', () => {
+  test('displays loading state', async () => {
+    // Mock a promise that never resolves to keep loading state
     mockedApiService.getGames.mockImplementation(() => new Promise(() => {}));
     
-    render(<App />);
+    await act(async () => {
+      render(<App />);
+    });
     
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 
-  test('dropdown is disabled when loading', () => {
+  test('dropdown is disabled when loading', async () => {
     mockedApiService.getGames.mockImplementation(() => new Promise(() => {}));
     
-    render(<App />);
+    await act(async () => {
+      render(<App />);
+    });
     
     const dropdown = screen.getByRole('combobox');
     expect(dropdown).toBeDisabled();
@@ -121,26 +157,34 @@ describe('App Component', () => {
   test('dropdown is disabled when no games are available', async () => {
     mockedApiService.getGames.mockResolvedValue([]);
     
-    render(<App />);
+    await act(async () => {
+      render(<App />);
+    });
     
     await waitFor(() => {
       const dropdown = screen.getByRole('combobox');
       expect(dropdown).toBeDisabled();
     });
   });
+
   test('retry button works after error', async () => {
     mockedApiService.getGames
       .mockRejectedValueOnce(new Error('API Error'))
       .mockResolvedValue(mockGames);
     
-    render(<App />);
+    await act(async () => {
+      render(<App />);
+    });
     
     await waitFor(() => {
       expect(screen.getByText(/Failed to load games/)).toBeInTheDocument();
     });
 
     const retryButton = screen.getByText('Retry');
-    fireEvent.click(retryButton);
+    
+    await act(async () => {
+      fireEvent.click(retryButton);
+    });
 
     await waitFor(() => {
       expect(mockedApiService.getGames).toHaveBeenCalledTimes(2);
@@ -152,41 +196,58 @@ describe('App Component', () => {
     mockedApiService.getGameAnalysis.mockResolvedValue(mockGameAnalysis);
     mockedApiService.getHistogramData.mockResolvedValue(mockHistogramData);
     
-    render(<App />);
+    await act(async () => {
+      render(<App />);
+    });
     
+    // Wait for games to load
     await waitFor(() => {
-      expect(screen.getByDisplayValue('')).toBeInTheDocument();
+      expect(mockedApiService.getGames).toHaveBeenCalledTimes(1);
     });
 
-    const dropdown = screen.getByDisplayValue('');
-    fireEvent.change(dropdown, { target: { value: '1' } });
+    const dropdown = screen.getByRole('combobox');
+
+    // Select a game
+    await act(async () => {
+      fireEvent.change(dropdown, { target: { value: '1' } });
+    });
 
     await waitFor(() => {
       expect(screen.getByText('Game Analysis')).toBeInTheDocument();
     });
 
-    // deselects the game
-    fireEvent.change(dropdown, { target: { value: '' } });
+    // Deselect the game
+    await act(async () => {
+      fireEvent.change(dropdown, { target: { value: '' } });
+    });
 
     await waitFor(() => {
       expect(screen.queryByText('Game Analysis')).not.toBeInTheDocument();
     });
   });
+
   test('handles analysis loading error', async () => {
     mockedApiService.getGames.mockResolvedValue(mockGames);
     mockedApiService.getGameAnalysis.mockRejectedValue(new Error('Analysis Error'));
     mockedApiService.getHistogramData.mockResolvedValue(mockHistogramData);
     
-    render(<App />);
+    await act(async () => {
+      render(<App />);
+    });
     
+    // Wait for games to load
     await waitFor(() => {
-      expect(screen.getByDisplayValue('')).toBeInTheDocument();
+      expect(mockedApiService.getGames).toHaveBeenCalledTimes(1);
     });
 
-    const dropdown = screen.getByDisplayValue('');
-    fireEvent.change(dropdown, { target: { value: '1' } });
+    const dropdown = screen.getByRole('combobox');
+    
+    await act(async () => {
+      fireEvent.change(dropdown, { target: { value: '1' } });
+    });
 
     await waitFor(() => {
       expect(screen.getByText('Failed to load game data')).toBeInTheDocument();
     });
   });
+});

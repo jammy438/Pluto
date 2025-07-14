@@ -170,3 +170,63 @@ describe('Histogram Component', () => {
     expect(bars.length).toBeGreaterThan(0);
   });
 
+  test('displays count labels on bars when count > 0', () => {
+    render(<Histogram data={mockHistogramData} />);
+    
+    const countLabels = Array.from(document.querySelectorAll('text[fill="white"]'));
+    expect(countLabels.length).toBeGreaterThan(0);
+  });
+
+  test('histogram container has correct CSS class', () => {
+    render(<Histogram data={mockHistogramData} />);
+    
+    const container = document.querySelector('.histogram-container');
+    expect(container).toBeInTheDocument();
+  });
+
+  test('histogram has legend section', () => {
+    render(<Histogram data={mockHistogramData} />);
+    
+    const legend = document.querySelector('.histogram-legend');
+    expect(legend).toBeInTheDocument();
+    
+    const legendItems = document.querySelectorAll('.legend-item');
+    expect(legendItems).toHaveLength(2);
+  });
+
+  test('svg has correct minimum width styling', () => {
+    render(<Histogram data={mockHistogramData} />);
+    
+    const svg = document.querySelector('svg.histogram-svg');
+    expect(svg).toHaveStyle('min-width: 640px');
+  });
+
+  test('renders grid lines for better readability', () => {
+    render(<Histogram data={mockHistogramData} />);
+    
+    // Checks for grid lines (horizontal lines)
+    const gridLines = document.querySelectorAll('line[stroke="#e5e7eb"]');
+    expect(gridLines.length).toBeGreaterThan(0);
+  });
+
+  test('handles large score ranges correctly', () => {
+    const largeRangeData: Histogram_data = {
+      home_team: 'Large Range Home',
+      away_team: 'Large Range Away',
+      home_scores: [100, 200, 300],
+      away_scores: [150, 250, 350],
+      home_frequency: { '100': 1, '200': 1, '300': 1 },
+      away_frequency: { '150': 1, '250': 1, '350': 1 },
+      score_range: { min: 100, max: 350 }
+    };
+
+    render(<Histogram data={largeRangeData} />);
+    
+    const svg = document.querySelector('svg.histogram-svg');
+    expect(svg).toBeInTheDocument();
+    
+    // Checks that bars are still rendered even with large range
+    const bars = document.querySelectorAll('.histogram-bar');
+    expect(bars.length).toBeGreaterThan(0);
+  });
+});

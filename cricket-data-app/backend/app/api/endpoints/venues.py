@@ -54,14 +54,14 @@ async def get_venues():
         logger.error(f"Database error in get_venues: {str(e)}")
         logger.error(f"Traceback: {traceback.format_exc()}")
         raise HTTPException(
-            status_code=500, 
+            status_code=500,
             detail=f"Database error retrieving venues: {str(e)}"
         )
     except Exception as e:
         logger.error(f"Error in get_venues: {str(e)}")
         logger.error(f"Traceback: {traceback.format_exc()}")
         raise HTTPException(
-            status_code=500, 
+            status_code=500,
             detail=f"Error retrieving venues: {str(e)}"
         )
 

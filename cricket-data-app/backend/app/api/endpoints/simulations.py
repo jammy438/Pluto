@@ -48,14 +48,14 @@ async def get_teams():
         logger.error(f"Database error in get_teams: {str(e)}")
         logger.error(f"Traceback: {traceback.format_exc()}")
         raise HTTPException(
-            status_code=500, 
+            status_code=500,
             detail=f"Database error retrieving teams: {str(e)}"
         )
     except Exception as e:
         logger.error(f"Error in get_teams: {str(e)}")
         logger.error(f"Traceback: {traceback.format_exc()}")
         raise HTTPException(
-            status_code=500, 
+            status_code=500,
             detail=f"Error retrieving teams: {str(e)}"
         )
 
@@ -134,12 +134,12 @@ async def get_team_statistics(team_name: str):
         
         # Query statistics for specific team
         query = """
-        SELECT 
+        SELECT
             COUNT(*) as total_simulations,
             AVG(results) as average_score,
             MIN(results) as min_score,
             MAX(results) as max_score
-        FROM simulations 
+        FROM simulations
         WHERE team = ?
         """
         

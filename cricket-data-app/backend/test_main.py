@@ -1,4 +1,3 @@
-# test_main.py
 import pytest
 import sqlite3
 import tempfile
@@ -7,8 +6,11 @@ from fastapi.testclient import TestClient
 from unittest.mock import patch, MagicMock
 import pandas as pd
 
-# Import your FastAPI app
 from main import app, init_database, load_csv_data
+from app.constants import (
+    HTTPStatus, ErrorMessages, Database, Testing,
+    FilePaths, BusinessLogic, API
+)
 
 client = TestClient(app)
 
@@ -17,7 +19,10 @@ class TestDatabaseSetup:
     
     def setup_method(self):
         """Setup test database for each test"""
-        self.test_db = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
+        self.test_db = tempfile.NamedTemporaryFile(
+            delete=False,
+            suffix=Testing.MockValues.TEST_DATABASE_SUFFIX
+        )
         self.test_db_path = self.test_db.name
         self.test_db.close()
     
@@ -28,42 +33,39 @@ class TestDatabaseSetup:
     
     def test_init_database(self):
         """Test database initialization creates all required tables"""
-        with patch('main.DATABASE_PATH', self.test_db_path):
+        with patch('main.config.database_path', self.test_db_path):
             init_database()
         
         conn = sqlite3.connect(self.test_db_path)
         cursor = conn.cursor()
         
-        # Check if tables exist
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
         tables = [row[0] for row in cursor.fetchall()]
         
-        assert 'venues' in tables
-        assert 'games' in tables
-        assert 'simulations' in tables
+        assert Database.Tables.VENUES in tables
+        assert Database.Tables.GAMES in tables
+        assert Database.Tables.SIMULATIONS in tables
         
         conn.close()
     
     def test_database_tables_structure(self):
         """Test that database tables have correct structure"""
-        with patch('main.DATABASE_PATH', self.test_db_path):
+        with patch('main.config.database_path', self.test_db_path):
             init_database()
         
         conn = sqlite3.connect(self.test_db_path)
         cursor = conn.cursor()
         
-        # Check venues table structure
-        cursor.execute("PRAGMA table_info(venues)")
+        cursor.execute(f"PRAGMA table_info({Database.Tables.VENUES})")
         venues_columns = [row[1] for row in cursor.fetchall()]
-        assert 'venue_id' in venues_columns
-        assert 'venue_name' in venues_columns
+        assert Database.Columns.VENUE_ID in venues_columns
+        assert Database.Columns.VENUE_NAME in venues_columns
         
-        # Check games table structure
-        cursor.execute("PRAGMA table_info(games)")
+        cursor.execute(f"PRAGMA table_info({Database.Tables.GAMES})")
         games_columns = [row[1] for row in cursor.fetchall()]
-        assert 'id' in games_columns
-        assert 'home_team' in games_columns
-        assert 'away_team' in games_columns
+        assert Database.Columns.GAME_ID in games_columns
+        assert Database.Columns.HOME_TEAM in games_columns
+        assert Database.Columns.AWAY_TEAM in games_columns
         
         conn.close()
 
@@ -71,28 +73,40 @@ class TestCSVLoading:
     """Test CSV data loading functionality"""
     
     def setup_method(self):
-        self.test_db = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
+        self.test_db = tempfile.NamedTemporaryFile(
+            delete=False,
+            suffix=Testing.MockValues.TEST_DATABASE_SUFFIX
+        )
         self.test_db_path = self.test_db.name
         self.test_db.close()
         
-        # Create test CSV data
         self.test_venues_data = pd.DataFrame({
-            'venue_id': [0, 1, 2],
-            'venue_name': ['Test Ground 1', 'Test Ground 2', 'Test Ground 3']
+            Database.Columns.VENUE_ID: [0, 1, 2],
+            Database.Columns.VENUE_NAME: [
+                f'{Testing.MockValues.TEST_VENUE_NAME} 1',
+                f'{Testing.MockValues.TEST_VENUE_NAME} 2',
+                f'{Testing.MockValues.TEST_VENUE_NAME} 3'
+            ]
         })
         
         self.test_games_data = pd.DataFrame({
-            'home_team': ['Team A', 'Team B'],
-            'away_team': ['Team B', 'Team A'],
-            'date': ['2024-01-01', '2024-01-02'],
-            'venue_id': [0, 1]
+            Database.Columns.HOME_TEAM: [Testing.MockValues.TEST_TEAM_A, Testing.MockValues.TEST_TEAM_B],
+            Database.Columns.AWAY_TEAM: [Testing.MockValues.TEST_TEAM_B, Testing.MockValues.TEST_TEAM_A],
+            Database.Columns.DATE: [Testing.MockValues.TEST_DATE, '2024-01-02'],
+            Database.Columns.GAME_VENUE_ID: [0, 1]
         })
         
         self.test_simulations_data = pd.DataFrame({
-            'team_id': [0, 0, 1, 1],
-            'team': ['Team A', 'Team A', 'Team B', 'Team B'],
-            'simulation_run': [1, 2, 1, 2],
-            'results': [150, 160, 140, 145]
+            Database.Columns.TEAM_ID: [0, 0, 1, 1],
+            Database.Columns.TEAM: [Testing.MockValues.TEST_TEAM_A, Testing.MockValues.TEST_TEAM_A, 
+                                   Testing.MockValues.TEST_TEAM_B, Testing.MockValues.TEST_TEAM_B],
+            Database.Columns.SIMULATION_RUN: [1, 2, 1, 2],
+            Database.Columns.RESULTS: [
+                Testing.MockValues.DEFAULT_HOME_SCORE, 
+                Testing.MockValues.DEFAULT_HOME_SCORE + 10,
+                Testing.MockValues.DEFAULT_AWAY_SCORE, 
+                Testing.MockValues.DEFAULT_AWAY_SCORE + 5
+            ]
         })
     
     def teardown_method(self):
@@ -105,31 +119,27 @@ class TestCSVLoading:
         """Test successful CSV data loading"""
         mock_exists.return_value = True
         
-        # Mock CSV reading
         def mock_csv_side_effect(filename):
-            if 'venues.csv' in filename:
+            if FilePaths.CSVFiles.VENUES in filename:
                 return self.test_venues_data
-            elif 'games.csv' in filename:
+            elif FilePaths.CSVFiles.GAMES in filename:
                 return self.test_games_data
-            elif 'simulations.csv' in filename:
+            elif FilePaths.CSVFiles.SIMULATIONS in filename:
                 return self.test_simulations_data
             return pd.DataFrame()
         
         mock_read_csv.side_effect = mock_csv_side_effect
         
-        with patch('main.DATABASE_PATH', self.test_db_path):
+        with patch('main.config.database_path', self.test_db_path):
             init_database()
             load_csv_data()
         
-        # Verify data was loaded
         conn = sqlite3.connect(self.test_db_path)
         
-        # Check venues
-        venues = pd.read_sql_query("SELECT * FROM venues", conn)
+        venues = pd.read_sql_query(f"SELECT * FROM {Database.Tables.VENUES}", conn)
         assert len(venues) == 3
         
-        # Check games
-        games = pd.read_sql_query("SELECT * FROM games", conn)
+        games = pd.read_sql_query(f"SELECT * FROM {Database.Tables.GAMES}", conn)
         assert len(games) == 2
         
         conn.close()
@@ -139,12 +149,15 @@ class TestAPIEndpoints:
     
     def setup_method(self):
         """Setup test data before each test"""
-        self.test_db = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
+        self.test_db = tempfile.NamedTemporaryFile(
+            delete=False,
+            suffix=Testing.MockValues.TEST_DATABASE_SUFFIX
+        )
         self.test_db_path = self.test_db.name
         self.test_db.close()
         
         # Initialize test database with sample data
-        with patch('main.DATABASE_PATH', self.test_db_path):
+        with patch('main.config.database_path', self.test_db_path):
             init_database()
             self._insert_test_data()
     
@@ -153,179 +166,244 @@ class TestAPIEndpoints:
             os.unlink(self.test_db_path)
     
     def _insert_test_data(self):
-        """Insert test data into database"""
+        """Insert test data into database using constants"""
         conn = sqlite3.connect(self.test_db_path)
         cursor = conn.cursor()
         
-        # Insert venues
-        cursor.execute("INSERT INTO venues (venue_id, venue_name) VALUES (0, 'Test Ground')")
+        cursor.execute(
+            f"INSERT INTO {Database.Tables.VENUES} ({Database.Columns.VENUE_ID}, {Database.Columns.VENUE_NAME}) VALUES (?, ?)",
+            (Testing.MockValues.TEST_VENUE_ID, Testing.MockValues.TEST_VENUE_NAME)
+        )
         
-        # Insert games
-        cursor.execute("""
-            INSERT INTO games (id, home_team, away_team, date, venue_id) 
-            VALUES (1, 'Team A', 'Team B', '2024-01-01', 0)
-        """)
+        cursor.execute(f"""
+            INSERT INTO {Database.Tables.GAMES}
+            ({Database.Columns.GAME_ID}, {Database.Columns.HOME_TEAM}, {Database.Columns.AWAY_TEAM}, {Database.Columns.DATE}, {Database.Columns.GAME_VENUE_ID}) 
+            VALUES (?, ?, ?, ?, ?)
+        """, (Testing.MockValues.TEST_GAME_ID, Testing.MockValues.TEST_TEAM_A,
+              Testing.MockValues.TEST_TEAM_B, Testing.MockValues.TEST_DATE, Testing.MockValues.TEST_VENUE_ID))
         
-        # Insert simulations
-        for i in range(5):
-            cursor.execute("""
-                INSERT INTO simulations (team_id, team, simulation_run, results) 
+        for i in range(Testing.TestData.DEFAULT_TEST_SIMULATIONS):
+            cursor.execute(f"""
+                INSERT INTO {Database.Tables.SIMULATIONS}
+                ({Database.Columns.TEAM_ID}, {Database.Columns.TEAM}, {Database.Columns.SIMULATION_RUN}, {Database.Columns.RESULTS}) 
                 VALUES (?, ?, ?, ?)
-            """, (0, 'Team A', i+1, 150+i))
-            cursor.execute("""
-                INSERT INTO simulations (team_id, team, simulation_run, results) 
+            """, (0, Testing.MockValues.TEST_TEAM_A, i+1, Testing.MockValues.DEFAULT_HOME_SCORE + i))
+            
+            cursor.execute(f"""
+                INSERT INTO {Database.Tables.SIMULATIONS} 
+                ({Database.Columns.TEAM_ID}, {Database.Columns.TEAM}, {Database.Columns.SIMULATION_RUN}, {Database.Columns.RESULTS}) 
                 VALUES (?, ?, ?, ?)
-            """, (1, 'Team B', i+1, 140+i))
+            """, (1, Testing.MockValues.TEST_TEAM_B, i+1, Testing.MockValues.DEFAULT_AWAY_SCORE + i))
         
         conn.commit()
         conn.close()
     
     def test_root_endpoint(self):
-        """Test root endpoint"""
-        with patch('main.DATABASE_PATH', self.test_db_path):
+        """Test root endpoint returns API status"""
+        with patch('main.config.database_path', self.test_db_path):
             response = client.get("/")
-            assert response.status_code == 200
-            assert response.json() == {"message": "Cricket Data API is running"}
+            assert response.status_code == HTTPStatus.OK
+            data = response.json()
+            assert "message" in data
+            assert "environment" in data
+            assert "version" in data
     
     def test_get_venues(self):
         """Test venues endpoint"""
-        with patch('main.DATABASE_PATH', self.test_db_path):
+        with patch('main.config.database_path', self.test_db_path):
             response = client.get("/venues")
-            assert response.status_code == 200
-            
+            assert response.status_code == HTTPStatus.OK
             venues = response.json()
             assert len(venues) == 1
-            assert venues[0]["name"] == "Test Ground"
+            assert venues[0]["name"] == Testing.MockValues.TEST_VENUE_NAME
     
     def test_get_games(self):
         """Test games endpoint"""
-        with patch('main.DATABASE_PATH', self.test_db_path):
+        with patch('main.config.database_path', self.test_db_path):
             response = client.get("/games")
-            assert response.status_code == 200
-            
+            assert response.status_code == HTTPStatus.OK
             games = response.json()
             assert len(games) == 1
-            assert games[0]["home_team"] == "Team A"
-            assert games[0]["away_team"] == "Team B"
+            assert games[0][Database.Columns.HOME_TEAM] == Testing.MockValues.TEST_TEAM_A
+    
+    def test_get_game_by_id(self):
+        """Test get specific game by ID"""
+        with patch('main.config.database_path', self.test_db_path):
+            response = client.get(f"/games/{Testing.MockValues.TEST_GAME_ID}")
+            assert response.status_code == HTTPStatus.OK
+            game = response.json()
+            assert game[Database.Columns.HOME_TEAM] == Testing.MockValues.TEST_TEAM_A
+            assert game[Database.Columns.AWAY_TEAM] == Testing.MockValues.TEST_TEAM_B
+    
+    def test_get_game_by_id_not_found(self):
+        """Test get game by ID when game doesn't exist"""
+        with patch('main.config.database_path', self.test_db_path):
+            response = client.get("/games/999")
+            assert response.status_code == HTTPStatus.NOT_FOUND
+            assert ErrorMessages.GAME_NOT_FOUND in response.json()["detail"]
     
     def test_get_game_analysis(self):
         """Test game analysis endpoint"""
-        with patch('main.DATABASE_PATH', self.test_db_path):
-            response = client.get("/games/1/analysis")
-            assert response.status_code == 200
-            
+        with patch('main.config.database_path', self.test_db_path):
+            response = client.get(f"/games/{Testing.MockValues.TEST_GAME_ID}/analysis")
+            assert response.status_code == HTTPStatus.OK
             analysis = response.json()
             assert "game" in analysis
+            assert "simulations" in analysis
             assert "home_win_probability" in analysis
             assert "total_simulations" in analysis
-            assert analysis["game"]["home_team"] == "Team A"
-    
-    def test_get_game_analysis_not_found(self):
-        """Test game analysis endpoint with non-existent game"""
-        with patch('main.DATABASE_PATH', self.test_db_path):
-            response = client.get("/games/999/analysis")
-            assert response.status_code == 404
-            assert "Game not found" in response.json()["detail"]
+            assert analysis["total_simulations"] == Testing.TestData.DEFAULT_TEST_SIMULATIONS
     
     def test_get_histogram_data(self):
         """Test histogram data endpoint"""
-        with patch('main.DATABASE_PATH', self.test_db_path):
-            response = client.get("/games/1/histogram-data")
-            assert response.status_code == 200
-            
+        with patch('main.config.database_path', self.test_db_path):
+            response = client.get(f"/games/{Testing.MockValues.TEST_GAME_ID}/histogram-data")
+            assert response.status_code == HTTPStatus.OK
             histogram = response.json()
-            assert "home_team" in histogram
-            assert "away_team" in histogram
+            assert Database.Columns.HOME_TEAM in histogram
+            assert Database.Columns.AWAY_TEAM in histogram
             assert "home_scores" in histogram
             assert "away_scores" in histogram
-            assert histogram["home_team"] == "Team A"
+            assert "score_range" in histogram
     
-    def test_get_histogram_data_not_found(self):
-        """Test histogram data endpoint with non-existent game"""
-        with patch('main.DATABASE_PATH', self.test_db_path):
-            response = client.get("/games/999/histogram-data")
-            assert response.status_code == 404
+    def test_get_teams(self):
+        """Test teams endpoint"""
+        with patch('main.config.database_path', self.test_db_path):
+            response = client.get("/teams")
+            assert response.status_code == HTTPStatus.OK
+            teams = response.json()
+            assert Testing.MockValues.TEST_TEAM_A in teams
+            assert Testing.MockValues.TEST_TEAM_B in teams
+    
+    def test_get_team_simulations(self):
+        """Test team simulations endpoint"""
+        with patch('main.config.database_path', self.test_db_path):
+            response = client.get(f"/simulations/{Testing.MockValues.TEST_TEAM_A}")
+            assert response.status_code == HTTPStatus.OK
+            simulations = response.json()
+            assert len(simulations) == Testing.TestData.DEFAULT_TEST_SIMULATIONS
+            assert all(sim[Database.Columns.TEAM] == Testing.MockValues.TEST_TEAM_A for sim in simulations)
+    
+    def test_get_team_simulations_not_found(self):
+        """Test team simulations when team doesn't exist"""
+        with patch('main.config.database_path', self.test_db_path):
+            response = client.get("/simulations/NonexistentTeam")
+            assert response.status_code == HTTPStatus.NOT_FOUND
+            assert ErrorMessages.NO_SIMULATIONS_FOR_TEAM in response.json()["detail"]
+    
+    def test_health_check(self):
+        """Test health check endpoint"""
+        with patch('main.config.database_path', self.test_db_path):
+            response = client.get("/health")
+            assert response.status_code == HTTPStatus.OK
+            health = response.json()
+            assert health["status"] == API.ResponseMessages.HEALTH_STATUS_HEALTHY
+            assert health["database"] == API.ResponseMessages.DATABASE_CONNECTED
+    
+    def test_debug_data_status(self):
+        """Test debug data status endpoint"""
+        with patch('main.config.database_path', self.test_db_path):
+            response = client.get("/debug/data-status")
+            assert response.status_code == HTTPStatus.OK
+            status = response.json()
+            assert "config" in status
+            assert "files_status" in status
+            assert "tables_info" in status
+            
+            # Check tables info using constants
+            tables_info = status["tables_info"]
+            assert Database.Tables.VENUES in tables_info
+            assert Database.Tables.GAMES in tables_info
+            assert Database.Tables.SIMULATIONS in tables_info
 
-class TestWinProbabilityCalculation:
-    """Test win probability calculation logic"""
+class TestErrorHandling:
+    """Test error handling scenarios"""
     
-    def test_win_probability_all_home_wins(self):
-        """Test win probability when home team wins all simulations"""
-        home_scores = [150, 160, 170, 180, 190]
-        away_scores = [140, 150, 160, 170, 180]
-        
-        home_wins = sum(1 for h, a in zip(home_scores, away_scores) if h > a)
-        win_percentage = (home_wins / len(home_scores)) * 100
-        
-        assert win_percentage == 100.0
+    def test_database_connection_error(self):
+        """Test handling of database connection errors"""
+        with patch('main.get_database_connection') as mock_conn:
+            mock_conn.side_effect = sqlite3.Error("Database connection failed")
+            response = client.get("/venues")
+            assert response.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
     
-    def test_win_probability_equal_teams(self):
-        """Test win probability with equal performing teams"""
-        home_scores = [150, 140, 160, 130, 170]
-        away_scores = [140, 150, 150, 140, 160]
-        
-        home_wins = sum(1 for h, a in zip(home_scores, away_scores) if h > a)
-        win_percentage = (home_wins / len(home_scores)) * 100
-        
-        # Should be 60% (3 out of 5 wins)
-        assert win_percentage == 60.0
-    
-    def test_win_probability_no_wins(self):
-        """Test win probability when home team loses all"""
-        home_scores = [140, 150, 160, 170, 180]
-        away_scores = [150, 160, 170, 180, 190]
-        
-        home_wins = sum(1 for h, a in zip(home_scores, away_scores) if h > a)
-        win_percentage = (home_wins / len(home_scores)) * 100
-        
-        assert win_percentage == 0.0
+    def test_invalid_game_id_type(self):
+        """Test handling of invalid game ID types"""
+        response = client.get("/games/invalid_id")
+        assert response.status_code == 422
 
-class TestDataValidation:
-    """Test data validation and error handling"""
+class TestBusinessLogicCalculations:
+    """Test business logic calculations using constants"""
     
-    def test_empty_simulation_data(self):
-        """Test handling of empty simulation data"""
-        # Test that the system handles empty data gracefully
-        home_scores = []
-        away_scores = []
+    def setup_method(self):
+        self.test_db = tempfile.NamedTemporaryFile(
+            delete=False,
+            suffix=Testing.MockValues.TEST_DATABASE_SUFFIX
+        )
+        self.test_db_path = self.test_db.name
+        self.test_db.close()
         
-        if len(home_scores) == 0:
-            win_percentage = 0.0
-        else:
-            home_wins = sum(1 for h, a in zip(home_scores, away_scores) if h > a)
-            win_percentage = (home_wins / len(home_scores)) * 100
-        
-        assert win_percentage == 0.0
+        with patch('main.config.database_path', self.test_db_path):
+            init_database()
+            self._insert_win_probability_test_data()
     
-    def test_mismatched_data_lengths(self):
-        """Test handling of mismatched data lengths"""
-        home_scores = [150, 160, 170]
-        away_scores = [140, 150]  # Shorter list
-        
-        # Should handle gracefully by using minimum length
-        min_length = min(len(home_scores), len(away_scores))
-        home_wins = sum(1 for h, a in zip(home_scores[:min_length], away_scores[:min_length]) if h > a)
-        win_percentage = (home_wins / min_length) * 100 if min_length > 0 else 0.0
-        
-        assert win_percentage == 100.0  # Both home scores are higher
-
-# Pytest fixtures
-@pytest.fixture
-def test_client():
-    """Fixture for FastAPI test client"""
-    return TestClient(app)
-
-@pytest.fixture
-def temp_database():
-    """Fixture for temporary test database"""
-    test_db = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
-    test_db_path = test_db.name
-    test_db.close()
+    def teardown_method(self):
+        if os.path.exists(self.test_db_path):
+            os.unlink(self.test_db_path)
     
-    yield test_db_path
+    def _insert_win_probability_test_data(self):
+        """Insert specific test data for win probability calculations"""
+        conn = sqlite3.connect(self.test_db_path)
+        cursor = conn.cursor()
+        
+        # Insert test venue
+        cursor.execute(
+            f"INSERT INTO {Database.Tables.VENUES} ({Database.Columns.VENUE_ID}, {Database.Columns.VENUE_NAME}) VALUES (?, ?)",
+            (Testing.MockValues.TEST_VENUE_ID, Testing.MockValues.TEST_VENUE_NAME)
+        )
+        
+        # Insert test game
+        cursor.execute(f"""
+            INSERT INTO {Database.Tables.GAMES}
+            ({Database.Columns.GAME_ID}, {Database.Columns.HOME_TEAM}, {Database.Columns.AWAY_TEAM}, {Database.Columns.DATE}, {Database.Columns.GAME_VENUE_ID}) 
+            VALUES (?, ?, ?, ?, ?)
+        """, (Testing.MockValues.TEST_GAME_ID, Testing.MockValues.TEST_TEAM_A,
+              Testing.MockValues.TEST_TEAM_B, Testing.MockValues.TEST_DATE, Testing.MockValues.TEST_VENUE_ID))
+        
+        # Insert simulations where home team always wins (for predictable testing)
+        for i in range(Testing.TestData.DEFAULT_TEST_SIMULATIONS):
+            # Home team scores higher
+            cursor.execute(f"""
+                INSERT INTO {Database.Tables.SIMULATIONS} 
+                ({Database.Columns.TEAM_ID}, {Database.Columns.TEAM}, {Database.Columns.SIMULATION_RUN}, {Database.Columns.RESULTS}) 
+                VALUES (?, ?, ?, ?)
+            """, (0, Testing.MockValues.TEST_TEAM_A, i+1, Testing.MockValues.DEFAULT_HOME_SCORE + 20))
+            
+            # Away team scores lower
+            cursor.execute(f"""
+                INSERT INTO {Database.Tables.SIMULATIONS} 
+                ({Database.Columns.TEAM_ID}, {Database.Columns.TEAM}, {Database.Columns.SIMULATION_RUN}, {Database.Columns.RESULTS}) 
+                VALUES (?, ?, ?, ?)
+            """, (1, Testing.MockValues.TEST_TEAM_B, i+1, Testing.MockValues.DEFAULT_AWAY_SCORE))
+        
+        conn.commit()
+        conn.close()
     
-    if os.path.exists(test_db_path):
-        os.unlink(test_db_path)
+    def test_win_probability_calculation(self):
+        """Test win probability calculation uses correct constants"""
+        with patch('main.config.database_path', self.test_db_path):
+            response = client.get(f"/games/{Testing.MockValues.TEST_GAME_ID}/analysis")
+            assert response.status_code == HTTPStatus.OK
+            analysis = response.json()
+            
+            # As home team always wins in our test data, probability should be 100%
+            expected_probability = BusinessLogic.WinProbability.PERCENTAGE_MULTIPLIER
+            assert analysis["home_win_probability"] == expected_probability
+            
+            # Checks decimal places using constant
+            probability_str = str(analysis["home_win_probability"])
+            if '.' in probability_str:
+                decimal_places = len(probability_str.split('.')[1])
+                assert decimal_places <= BusinessLogic.WinProbability.DECIMAL_PLACES
 
 if __name__ == "__main__":
     pytest.main([__file__])

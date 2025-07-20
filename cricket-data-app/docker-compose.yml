@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cricket-backend
+    environment:
+      - PYTHONPATH=/app
+      - DATABASE_PATH=/app/cricket_data.db
+    volumes:
+      - ./backend/data:/app/data:ro
+      - backend_db:/app
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    networks:
+      - cricket-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cricket-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - cricket-network
+
+volumes:
+  backend_db:
+    driver: local
+
+networks:
+  cricket-network:
+    driver: bridge
